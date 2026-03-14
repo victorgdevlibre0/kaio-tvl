@@ -78,7 +78,7 @@ function normalize(
     const k = `${product}|||${chain}`;
     let entry = map.get(k);
     if (!entry) {
-      entry = { product, chain, supply: 0, nav: 0, tvl: 0, tokenTypes: new Set(), securityTVL: 0, bridgedTVL: 0, receiptTVL: 0 };
+      entry = { product, chain, supply: 0, nav: 0, tvl: 0, tokenTypes: new Set(), contracts: [], securityTVL: 0, bridgedTVL: 0, receiptTVL: 0 };
       map.set(k, entry);
     }
     return entry;
