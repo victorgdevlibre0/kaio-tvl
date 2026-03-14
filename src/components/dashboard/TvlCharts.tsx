@@ -54,7 +54,7 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="glass-card rounded-lg p-5">
         <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-          TVL by Product
+          TVL by RWA
         </h3>
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={productChartData} barCategoryGap="20%">

@@ -42,38 +42,38 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
 
   return (
     <div className="glass-card rounded-lg overflow-hidden">
-      <div className="flex items-center justify-between p-5 border-b border-border/50">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between p-6 border-b border-border/50">
+        <div className="flex items-center gap-4">
           {(() => {
             const meta = getTokenMeta(product.product);
             return meta ? (
-              <img src={meta.logo} alt={product.product} className="h-8 w-8 brightness-0 invert" />
+              <img src={meta.logo} alt={product.product} className="h-10 w-10 brightness-0 invert" />
             ) : (
-              <div className="h-2 w-2 rounded-full bg-accent animate-pulse-glow" />
+              <div className="h-3 w-3 rounded-full bg-accent animate-pulse-glow" />
             );
           })()}
           <div className="flex flex-col">
-            <h3 className="text-lg font-semibold leading-tight">{product.product}</h3>
+            <h3 className="text-xl font-semibold leading-tight">{product.product}</h3>
             {(() => {
               const meta = getTokenMeta(product.product);
               return meta ? (
-                <span className="text-xs text-muted-foreground leading-tight">{meta.name}</span>
+                <span className="text-sm text-muted-foreground leading-tight">{meta.name}</span>
               ) : null;
             })()}
           </div>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
           <div className="text-right">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Supply</p>
-            <p className="text-sm font-medium text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
+            <p className="text-base font-medium text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">NAV</p>
-            <p className="text-sm font-medium text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
+            <p className="text-base font-medium text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">TVL</p>
-            <p className="text-sm font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">TVL</p>
+            <p className="text-lg font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
           </div>
         </div>
       </div>
