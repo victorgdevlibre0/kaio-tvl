@@ -57,7 +57,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
                 {(() => {
                   const meta = getTokenMeta(product.product);
                   return meta ? (
-                    <span className="text-[11px] text-muted-foreground leading-tight truncate">{meta.name}</span>
+                    <span className="text-[11px] text-muted-foreground leading-tight truncate mt-1">{meta.name}</span>
                   ) : null;
                 })()}
               </div>
