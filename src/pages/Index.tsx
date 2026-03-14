@@ -111,11 +111,12 @@ const Index = () => {
         <TvlCharts data={filteredData} chainFilter={chainFilter} />
 
         <div className="space-y-6">
-          {filteredData.products.map((product) => (
+          {filteredData.products.map((product, idx) => (
             <ProductTable
               key={product.product}
               product={product}
               chainFilter={chainFilter}
+              defaultOpen={idx === 0}
             />
           ))}
         </div>
