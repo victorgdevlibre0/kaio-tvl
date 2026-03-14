@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { RefreshCw, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { RwaCategory } from "@/lib/product-categories";
+
 
 interface DashboardFiltersProps {
   allChains: string[];
