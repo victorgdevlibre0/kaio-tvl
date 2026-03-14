@@ -39,6 +39,7 @@ export function normalizeData(
           nav: 0,
           tvl: 0,
           tokenTypes: new Set(),
+          contracts: [],
           securityTVL: 0,
           bridgedTVL: 0,
           receiptTVL: 0,
