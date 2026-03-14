@@ -106,7 +106,7 @@ export function ProductTable({ product, chainFilter, defaultOpen = false }: Prod
                       className="border-b border-border/20 hover:bg-secondary/30 transition-colors duration-150"
                     >
                       <td className="px-5 py-3 font-medium">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-4">
                           {logo ? (
                             <img
                               src={logo}
