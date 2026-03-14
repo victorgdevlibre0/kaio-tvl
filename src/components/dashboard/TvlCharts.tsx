@@ -1,4 +1,4 @@
-import { NormalizedData, TokenType } from "@/lib/tvl-types";
+import { NormalizedData } from "@/lib/tvl-types";
 import {
   BarChart,
   Bar,
@@ -7,57 +7,38 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
-  Legend,
 } from "recharts";
 import { formatCurrency } from "@/lib/format";
 
 interface TvlChartsProps {
   data: NormalizedData;
   chainFilter: string[];
-  tokenTypeFilter: string[];
 }
 
-function matchesFilters(
-  chain: string,
-  tokenTypes: TokenType[],
-  chainFilter: string[],
-  tokenTypeFilter: string[]
-): boolean {
-  if (chainFilter.length > 0 && !chainFilter.includes(chain)) return false;
-  if (tokenTypeFilter.length > 0) {
-    const combined = tokenTypes.join(" + ");
-    const matches = tokenTypeFilter.some(
-      (f) => tokenTypes.includes(f as TokenType) || f === combined
-    );
-    if (!matches) return false;
-  }
-  return true;
+function matchesChainFilter(chain: string, chainFilter: string[]): boolean {
+  return chainFilter.length === 0 || chainFilter.includes(chain);
 }
 
-export function TvlCharts({ data, chainFilter, tokenTypeFilter }: TvlChartsProps) {
+export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
   // TVL by Product
   const productChartData = data.products.map((p) => {
     const filteredTVL = p.chains
-      .filter((c) => matchesFilters(c.chain, c.tokenTypes, chainFilter, tokenTypeFilter))
+      .filter((c) => matchesChainFilter(c.chain, chainFilter))
       .reduce((s, c) => s + c.tvl, 0);
     return { name: p.product, tvl: filteredTVL };
   }).filter(d => d.tvl > 0);
 
-  // TVL by Chain stacked
-  const chainMap = new Map<string, { security: number; bridged: number; receipt: number }>();
+  // TVL by Chain
+  const chainMap = new Map<string, number>();
   for (const p of data.products) {
     for (const c of p.chains) {
-      if (!matchesFilters(c.chain, c.tokenTypes, chainFilter, tokenTypeFilter)) continue;
-      const existing = chainMap.get(c.chain) || { security: 0, bridged: 0, receipt: 0 };
-      existing.security += c.breakdown.securityTVL;
-      existing.bridged += c.breakdown.bridgedTVL;
-      existing.receipt += c.breakdown.receiptTVL;
-      chainMap.set(c.chain, existing);
+      if (!matchesChainFilter(c.chain, chainFilter)) continue;
+      chainMap.set(c.chain, (chainMap.get(c.chain) || 0) + c.tvl);
     }
   }
   const chainChartData = Array.from(chainMap.entries())
-    .map(([chain, vals]) => ({ name: chain, ...vals }))
-    .sort((a, b) => (b.security + b.bridged + b.receipt) - (a.security + a.bridged + a.receipt));
+    .map(([chain, tvl]) => ({ name: chain, tvl }))
+    .sort((a, b) => b.tvl - a.tvl);
 
   const tooltipStyle = {
     contentStyle: {
@@ -95,11 +76,8 @@ export function TvlCharts({ data, chainFilter, tokenTypeFilter }: TvlChartsProps
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
             <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} />
             <YAxis tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
-            <Tooltip {...tooltipStyle} formatter={(value: number, name: string) => [formatCurrency(value), name.charAt(0).toUpperCase() + name.slice(1)]} />
-            <Legend wrapperStyle={{ fontSize: "12px", color: "hsl(228 12% 50%)" }} />
-            <Bar dataKey="security" stackId="a" fill="hsl(214 47% 52%)" name="Security" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="bridged" stackId="a" fill="hsl(214 58% 79%)" name="Bridged" />
-            <Bar dataKey="receipt" stackId="a" fill="hsl(59 100% 90%)" name="Receipt" radius={[4, 4, 0, 0]} />
+            <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
+            <Bar dataKey="tvl" fill="hsl(214 58% 79%)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

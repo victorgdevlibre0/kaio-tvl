@@ -11,7 +11,7 @@ import { NormalizedData } from "@/lib/tvl-types";
 
 const Index = () => {
   const [chainFilter, setChainFilter] = useState<string[]>([]);
-  const [tokenTypeFilter, setTokenTypeFilter] = useState<string[]>([]);
+  
   const [rwaCategory, setRwaCategory] = useState<RwaCategory>("production");
   const [autoRefresh, setAutoRefresh] = useState(false);
 
@@ -100,8 +100,6 @@ const Index = () => {
           allChains={filteredData.allChains}
           chainFilter={chainFilter}
           setChainFilter={setChainFilter}
-          tokenTypeFilter={tokenTypeFilter}
-          setTokenTypeFilter={setTokenTypeFilter}
           rwaCategory={rwaCategory}
           setRwaCategory={setRwaCategory}
           onRefresh={handleRefresh}
@@ -110,7 +108,7 @@ const Index = () => {
           setAutoRefresh={setAutoRefresh}
         />
 
-        <TvlCharts data={filteredData} chainFilter={chainFilter} tokenTypeFilter={tokenTypeFilter} />
+        <TvlCharts data={filteredData} chainFilter={chainFilter} />
 
         <div className="space-y-6">
           {filteredData.products.map((product) => (
@@ -118,7 +116,6 @@ const Index = () => {
               key={product.product}
               product={product}
               chainFilter={chainFilter}
-              tokenTypeFilter={tokenTypeFilter}
             />
           ))}
         </div>

@@ -7,8 +7,6 @@ interface DashboardFiltersProps {
   allChains: string[];
   chainFilter: string[];
   setChainFilter: (v: string[]) => void;
-  tokenTypeFilter: string[];
-  setTokenTypeFilter: (v: string[]) => void;
   rwaCategory: RwaCategory;
   setRwaCategory: (v: RwaCategory) => void;
   onRefresh: () => void;
@@ -16,12 +14,6 @@ interface DashboardFiltersProps {
   autoRefresh: boolean;
   setAutoRefresh: (v: boolean) => void;
 }
-
-const TOKEN_TYPE_OPTIONS = [
-  "Security Token",
-  "Bridged Security Token",
-  "Receipt Token",
-];
 
 const RWA_CATEGORY_OPTIONS: { value: RwaCategory; label: string }[] = [
   { value: "production", label: "Production RWAs" },
@@ -33,8 +25,6 @@ export function DashboardFilters({
   allChains,
   chainFilter,
   setChainFilter,
-  tokenTypeFilter,
-  setTokenTypeFilter,
   rwaCategory,
   setRwaCategory,
   onRefresh,
@@ -63,15 +53,7 @@ export function DashboardFilters({
     );
   };
 
-  const toggleTokenType = (tt: string) => {
-    setTokenTypeFilter(
-      tokenTypeFilter.includes(tt)
-        ? tokenTypeFilter.filter((t) => t !== tt)
-        : [...tokenTypeFilter, tt]
-    );
-  };
-
-  const hasFilters = chainFilter.length > 0 || tokenTypeFilter.length > 0 || rwaCategory !== "production";
+  const hasFilters = chainFilter.length > 0 || rwaCategory !== "production";
 
   return (
     <div className="flex flex-wrap items-center gap-3">
@@ -125,29 +107,11 @@ export function DashboardFilters({
         )}
       </div>
 
-      {/* Token Type Filter */}
-      <div className="flex items-center gap-1.5">
-        {TOKEN_TYPE_OPTIONS.map((tt) => (
-          <button
-            key={tt}
-            onClick={() => toggleTokenType(tt)}
-            className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${
-              tokenTypeFilter.includes(tt)
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-secondary text-secondary-foreground border-border/50 hover:border-primary/30"
-            }`}
-          >
-            {tt}
-          </button>
-        ))}
-      </div>
-
       {/* Clear filters */}
       {hasFilters && (
         <button
           onClick={() => {
             setChainFilter([]);
-            setTokenTypeFilter([]);
             setRwaCategory("production");
           }}
           className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"

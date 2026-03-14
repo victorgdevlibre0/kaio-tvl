@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProductData, TokenType } from "@/lib/tvl-types";
+import { ProductData } from "@/lib/tvl-types";
 import { formatFullCurrency, formatNumber } from "@/lib/format";
 import { getExplorerUrl, getExplorerLabel } from "@/lib/explorer-urls";
 import { getChainLogo } from "@/lib/chain-logos";
@@ -10,10 +10,9 @@ import { toast } from "sonner";
 interface ProductTableProps {
   product: ProductData;
   chainFilter: string[];
-  tokenTypeFilter: string[];
 }
 
-export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductTableProps) {
+export function ProductTable({ product, chainFilter }: ProductTableProps) {
   const [expandedChains, setExpandedChains] = useState<Set<string>>(new Set());
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
 
@@ -36,13 +35,6 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
 
   const filteredChains = product.chains.filter((c) => {
     if (chainFilter.length > 0 && !chainFilter.includes(c.chain)) return false;
-    if (tokenTypeFilter.length > 0) {
-      const combined = c.tokenTypes.join(" + ");
-      const matches = tokenTypeFilter.some(
-        (f) => c.tokenTypes.includes(f as TokenType) || f === combined
-      );
-      if (!matches) return false;
-    }
     return true;
   });
 
@@ -100,9 +92,6 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
               <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
                 TVL On Chain
               </th>
-              <th className="text-left text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
-                Token Type
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -146,50 +135,12 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                     <td className="px-5 py-3 text-right text-money font-semibold">
                       {formatFullCurrency(chain.tvl)}
                     </td>
-                    <td className="px-5 py-3">
-                      <div className="flex flex-wrap gap-1">
-                        {chain.tokenTypes.map((tt) => (
-                          <span
-                            key={tt}
-                            className="inline-block text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground"
-                          >
-                            {tt}
-                          </span>
-                        ))}
-                      </div>
-                    </td>
                   </tr>
                   {isExpanded && (
                     <tr key={`${chain.chain}-expanded`} className="bg-muted/30">
-                      <td colSpan={5} className="px-10 py-4">
-                        <div className="grid grid-cols-3 gap-6 mb-4">
+                      <td colSpan={4} className="px-10 py-4">
+                         {chain.contracts && chain.contracts.length > 0 && (
                           <div>
-                            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
-                              Security TVL
-                            </p>
-                            <p className="text-money font-semibold" style={{ color: "hsl(210 100% 56%)" }}>
-                              {formatFullCurrency(chain.breakdown.securityTVL)}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
-                              Bridged TVL
-                            </p>
-                            <p className="text-money font-semibold" style={{ color: "hsl(168 72% 45%)" }}>
-                              {formatFullCurrency(chain.breakdown.bridgedTVL)}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
-                              Receipt TVL
-                            </p>
-                            <p className="text-money font-semibold" style={{ color: "hsl(280 60% 55%)" }}>
-                              {formatFullCurrency(chain.breakdown.receiptTVL)}
-                            </p>
-                          </div>
-                        </div>
-                        {chain.contracts && chain.contracts.length > 0 && (
-                          <div className="border-t border-border/30 pt-3">
                             <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
                               Contract Addresses
                             </p>
@@ -244,7 +195,7 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
             })}
             {filteredChains.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-5 py-8 text-center text-muted-foreground text-sm">
+                <td colSpan={4} className="px-5 py-8 text-center text-muted-foreground text-sm">
                   No chains match the current filters
                 </td>
               </tr>
