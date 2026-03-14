@@ -131,38 +131,13 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                         {chain.chain}
                       </div>
                     </td>
-                    <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>
+                    <td className="px-5 py-3 text-right text-money font-semibold">
+                      {formatFullCurrency(chain.tvl)}
                     </td>
                   </tr>
                   {isExpanded && (
                     <tr key={`${chain.chain}-expanded`} className="bg-muted/30">
-                      <td colSpan={5} className="px-10 py-4">
-                        <div className="grid grid-cols-3 gap-6 mb-4">
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
-                              Security TVL
-                            </p>
-                            <p className="text-money font-semibold" style={{ color: "hsl(210 100% 56%)" }}>
-                              {formatFullCurrency(chain.breakdown.securityTVL)}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
-                              Bridged TVL
-                            </p>
-                            <p className="text-money font-semibold" style={{ color: "hsl(168 72% 45%)" }}>
-                              {formatFullCurrency(chain.breakdown.bridgedTVL)}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
-                              Receipt TVL
-                            </p>
-                            <p className="text-money font-semibold" style={{ color: "hsl(280 60% 55%)" }}>
-                              {formatFullCurrency(chain.breakdown.receiptTVL)}
-                            </p>
-                          </div>
-                        </div>
+                      <td colSpan={4} className="px-10 py-4">
                         {chain.contracts && chain.contracts.length > 0 && (
                           <div className="border-t border-border/30 pt-3">
                             <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
