@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { RefreshCw, X, Download } from "lucide-react";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { RefreshCw, X, Download, Search, ChevronDown, Check } from "lucide-react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { NormalizedData } from "@/lib/tvl-types";
+import { getChainLogo } from "@/lib/chain-logos";
 
 interface DashboardFiltersProps {
   allChains: string[];
@@ -16,7 +17,6 @@ interface DashboardFiltersProps {
   data: NormalizedData;
 }
 
-
 export function DashboardFilters({
   allChains,
   chainFilter,
@@ -30,17 +30,32 @@ export function DashboardFilters({
   data,
 }: DashboardFiltersProps) {
   const [chainOpen, setChainOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const chainRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (chainRef.current && !chainRef.current.contains(e.target as Node)) {
         setChainOpen(false);
+        setSearchQuery("");
       }
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
+
+  useEffect(() => {
+    if (chainOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [chainOpen]);
+
+  const filteredChains = useMemo(() => {
+    if (!searchQuery) return allChains;
+    const q = searchQuery.toLowerCase();
+    return allChains.filter((c) => c.toLowerCase().includes(q));
+  }, [allChains, searchQuery]);
 
   const toggleChain = (chain: string) => {
     setChainFilter(
@@ -49,6 +64,9 @@ export function DashboardFilters({
         : [...chainFilter, chain]
     );
   };
+
+  const selectAll = () => setChainFilter([...allChains]);
+  const clearAll = () => setChainFilter([]);
 
   const hasFilters = chainFilter.length > 0;
 
@@ -83,38 +101,133 @@ export function DashboardFilters({
 
   return (
     <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-      {/* Chain Filter */}
+      {/* Chain Multi-Select Dropdown */}
       <div className="relative" ref={chainRef}>
         <button
           onClick={() => setChainOpen(!chainOpen)}
           className="flex items-center gap-2 px-3 py-2 text-sm rounded-md bg-secondary text-secondary-foreground border border-border/50 hover:border-primary/30 transition-colors"
         >
-          Chains
+          <span>Chains</span>
           {chainFilter.length > 0 && (
             <span className="bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center">
               {chainFilter.length}
             </span>
           )}
+          <ChevronDown className={`h-3.5 w-3.5 text-muted-foreground transition-transform ${chainOpen ? "rotate-180" : ""}`} />
         </button>
+
         {chainOpen && (
-          <div className="absolute z-50 mt-1 w-56 rounded-lg bg-card border border-border shadow-lg p-2 max-h-64 overflow-y-auto">
-            {allChains.map((chain) => (
-              <label
-                key={chain}
-                className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-secondary/50 cursor-pointer text-sm"
-              >
+          <div className="absolute z-50 mt-1 w-64 rounded-lg bg-card border border-border shadow-xl overflow-hidden">
+            {/* Search input */}
+            <div className="p-2 border-b border-border/50">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                 <input
-                  type="checkbox"
-                  checked={chainFilter.includes(chain)}
-                  onChange={() => toggleChain(chain)}
-                  className="rounded border-border"
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search chains…"
+                  className="w-full pl-8 pr-3 py-1.5 text-sm bg-secondary/50 rounded-md border border-border/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50"
                 />
-                {chain}
-              </label>
-            ))}
+              </div>
+            </div>
+
+            {/* Select all / Clear */}
+            <div className="flex items-center justify-between px-3 py-1.5 border-b border-border/30">
+              <button
+                onClick={selectAll}
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Select all
+              </button>
+              <button
+                onClick={clearAll}
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Clear all
+              </button>
+            </div>
+
+            {/* Chain list */}
+            <div className="max-h-56 overflow-y-auto p-1.5">
+              {filteredChains.length === 0 && (
+                <p className="text-xs text-muted-foreground text-center py-3">No chains found</p>
+              )}
+              {filteredChains.map((chain) => {
+                const logo = getChainLogo(chain);
+                const isSelected = chainFilter.includes(chain);
+                return (
+                  <button
+                    key={chain}
+                    onClick={() => toggleChain(chain)}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm transition-colors ${
+                      isSelected
+                        ? "bg-primary/10 text-foreground"
+                        : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                    }`}
+                  >
+                    {logo ? (
+                      <img src={logo} alt={chain} className="h-5 w-5 rounded-full shrink-0" />
+                    ) : (
+                      <div className="h-5 w-5 rounded-full bg-secondary flex items-center justify-center text-[10px] font-bold shrink-0">
+                        {chain.charAt(0)}
+                      </div>
+                    )}
+                    <span className="flex-1 text-left">{chain}</span>
+                    <div className={`h-4 w-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                      isSelected
+                        ? "bg-primary border-primary"
+                        : "border-border/60"
+                    }`}>
+                      {isSelected && <Check className="h-3 w-3 text-primary-foreground" />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Footer: selected count */}
+            {chainFilter.length > 0 && (
+              <div className="px-3 py-2 border-t border-border/30 text-xs text-muted-foreground">
+                {chainFilter.length} of {allChains.length} selected
+              </div>
+            )}
           </div>
         )}
       </div>
+
+      {/* Active chain filter pills */}
+      {chainFilter.length > 0 && chainFilter.length <= 5 && (
+        <div className="flex flex-wrap items-center gap-1.5">
+          {chainFilter.map((chain) => {
+            const logo = getChainLogo(chain);
+            return (
+              <button
+                key={chain}
+                onClick={() => toggleChain(chain)}
+                className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-primary/10 text-xs text-foreground border border-primary/20 hover:border-primary/40 transition-colors group"
+              >
+                {logo ? (
+                  <img src={logo} alt={chain} className="h-3.5 w-3.5 rounded-full" />
+                ) : null}
+                <span>{chain}</span>
+                <X className="h-3 w-3 text-muted-foreground group-hover:text-foreground transition-colors" />
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Clear all filters */}
+      {hasFilters && chainFilter.length > 5 && (
+        <button
+          onClick={clearAll}
+          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <X className="h-3 w-3" /> Clear {chainFilter.length} filters
+        </button>
+      )}
 
       {/* Hide zero balances */}
       <label className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground cursor-pointer select-none">
@@ -127,18 +240,6 @@ export function DashboardFilters({
         <span className="hidden sm:inline">Hide zero balances</span>
         <span className="sm:hidden">Hide zeros</span>
       </label>
-
-      {/* Clear filters */}
-      {hasFilters && (
-        <button
-          onClick={() => {
-            setChainFilter([]);
-          }}
-          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <X className="h-3 w-3" /> Clear
-        </button>
-      )}
 
       <div className="flex-1 min-w-0" />
 
