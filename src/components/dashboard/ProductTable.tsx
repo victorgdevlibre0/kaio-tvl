@@ -3,6 +3,7 @@ import { ProductData, TokenType } from "@/lib/tvl-types";
 import { formatFullCurrency, formatNumber } from "@/lib/format";
 import { getExplorerUrl, getExplorerLabel } from "@/lib/explorer-urls";
 import { getChainLogo } from "@/lib/chain-logos";
+import { getTokenMeta } from "@/lib/token-meta";
 import { ChevronDown, ChevronRight, ExternalLink, Copy, Check } from "lucide-react";
 import { toast } from "sonner";
 
