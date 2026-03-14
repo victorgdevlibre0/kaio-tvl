@@ -105,7 +105,7 @@ export function DashboardFilters({
       <div className="relative" ref={chainRef}>
         <button
           onClick={() => setChainOpen(!chainOpen)}
-          className="flex items-center gap-2 px-3 py-2 text-sm rounded-md bg-secondary text-secondary-foreground border border-border/50 hover:border-primary/30 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-sm rounded-full bg-secondary text-secondary-foreground border border-border/40 hover:border-primary/30 transition-colors"
         >
           <span>Chains</span>
           {chainFilter.length > 0 && (
