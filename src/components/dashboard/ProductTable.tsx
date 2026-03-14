@@ -54,6 +54,10 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
         </div>
         <div className="flex items-center gap-8">
           <div className="text-right">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">Chains</p>
+            <p className="text-xl font-semibold text-money">{filteredChains.length}</p>
+          </div>
+          <div className="text-right">
             <p className="text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
             <p className="text-xl font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
           </div>
