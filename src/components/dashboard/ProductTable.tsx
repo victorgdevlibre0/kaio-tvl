@@ -81,9 +81,6 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
               <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
                 TVL On Chain
               </th>
-              <th className="text-left text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
-                Contracts
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -110,65 +107,52 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                           {chain.chain.charAt(0)}
                         </div>
                       )}
-                      {chain.chain}
+                      <span>{chain.chain}</span>
+                      {chain.contracts && chain.contracts.length > 0 && (
+                        <div className="flex items-center gap-1 ml-1">
+                          {chain.contracts.map((contract, idx) => {
+                            const explorerUrl = getExplorerUrl(chain.chain, contract.address);
+                            const isCopied = copiedAddress === contract.address;
+                            if (!explorerUrl) return null;
+                            return (
+                              <div key={idx} className="relative group">
+                                <a
+                                  href={explorerUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center justify-center h-5 w-5 rounded bg-secondary/80 text-muted-foreground hover:text-accent hover:bg-secondary transition-colors"
+                                  title={`${contract.tokenType}: ${contract.address}`}
+                                >
+                                  <ExternalLink className="h-3 w-3" />
+                                </a>
+                                <button
+                                  onClick={(e) => copyAddress(contract.address, e)}
+                                  className="absolute -right-5 top-0 hidden group-hover:inline-flex items-center justify-center h-5 w-5 rounded bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+                                  title="Copy address"
+                                >
+                                  {isCopied ? (
+                                    <Check className="h-3 w-3 text-accent" />
+                                  ) : (
+                                    <Copy className="h-3 w-3" />
+                                  )}
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   </td>
                   <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>
                   <td className="px-5 py-3 text-right text-money font-semibold">
                     {formatFullCurrency(chain.tvl)}
                   </td>
-                  <td className="px-5 py-3">
-                    {chain.contracts && chain.contracts.length > 0 ? (
-                      <div className="flex flex-wrap gap-2">
-                        {chain.contracts.map((contract, idx) => {
-                          const explorerUrl = getExplorerUrl(chain.chain, contract.address);
-                          const truncated = contract.address.length > 16
-                            ? `${contract.address.slice(0, 6)}…${contract.address.slice(-4)}`
-                            : contract.address;
-                          const isCopied = copiedAddress === contract.address;
-                          return (
-                            <div key={idx} className="inline-flex items-center gap-1 text-xs">
-                              <span className="text-muted-foreground">
-                                {contract.tokenType.replace(" Token", "")}:
-                              </span>
-                              {explorerUrl ? (
-                                <a
-                                  href={explorerUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="font-mono text-accent hover:underline inline-flex items-center gap-0.5"
-                                >
-                                  {truncated}
-                                  <ExternalLink className="h-3 w-3" />
-                                </a>
-                              ) : (
-                                <span className="font-mono text-foreground">{truncated}</span>
-                              )}
-                              <button
-                                onClick={(e) => copyAddress(contract.address, e)}
-                                className="inline-flex items-center p-0.5 rounded text-muted-foreground hover:text-foreground transition-colors"
-                                title="Copy address"
-                              >
-                                {isCopied ? (
-                                  <Check className="h-3 w-3 text-accent" />
-                                ) : (
-                                  <Copy className="h-3 w-3" />
-                                )}
-                              </button>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <span className="text-xs text-muted-foreground">—</span>
-                    )}
-                  </td>
                 </tr>
               );
             })}
             {filteredChains.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-5 py-8 text-center text-muted-foreground text-sm">
+                <td colSpan={3} className="px-5 py-8 text-center text-muted-foreground text-sm">
                   No chains match the current filters
                 </td>
               </tr>
