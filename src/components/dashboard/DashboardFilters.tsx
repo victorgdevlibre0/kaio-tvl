@@ -244,7 +244,7 @@ export function DashboardFilters({
       <div className="flex-1 min-w-0" />
 
       {/* Auto-refresh toggle */}
-      <label className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
+      <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
         <div
           className={`relative w-8 h-4 rounded-full transition-colors ${
             autoRefresh ? "bg-primary" : "bg-secondary"
