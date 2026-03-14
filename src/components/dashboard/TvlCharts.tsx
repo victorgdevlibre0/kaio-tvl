@@ -16,21 +16,8 @@ interface TvlChartsProps {
   chainFilter: string[];
 }
 
-function matchesFilters(
-  chain: string,
-  tokenTypes: TokenType[],
-  chainFilter: string[],
-  tokenTypeFilter: string[]
-): boolean {
-  if (chainFilter.length > 0 && !chainFilter.includes(chain)) return false;
-  if (tokenTypeFilter.length > 0) {
-    const combined = tokenTypes.join(" + ");
-    const matches = tokenTypeFilter.some(
-      (f) => tokenTypes.includes(f as TokenType) || f === combined
-    );
-    if (!matches) return false;
-  }
-  return true;
+function matchesChainFilter(chain: string, chainFilter: string[]): boolean {
+  return chainFilter.length === 0 || chainFilter.includes(chain);
 }
 
 export function TvlCharts({ data, chainFilter, tokenTypeFilter }: TvlChartsProps) {
