@@ -19,6 +19,7 @@ interface MainAsset {
 }
 
 interface ChainAsset {
+  address: string;
   symbol: string;
   instrumentId: string;
   latestNav: number | null;
