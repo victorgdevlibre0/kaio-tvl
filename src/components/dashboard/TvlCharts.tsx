@@ -14,7 +14,6 @@ import { formatCurrency } from "@/lib/format";
 interface TvlChartsProps {
   data: NormalizedData;
   chainFilter: string[];
-  tokenTypeFilter: string[];
 }
 
 function matchesFilters(
