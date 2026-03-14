@@ -67,6 +67,7 @@ export default {
           bridged: "hsl(var(--chart-bridged))",
           receipt: "hsl(var(--chart-receipt))",
         },
+        surface: "hsl(var(--surface))",
         kpi: {
           green: "hsl(var(--kpi-green))",
           blue: "hsl(var(--kpi-blue))",
