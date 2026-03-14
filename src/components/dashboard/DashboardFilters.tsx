@@ -107,23 +107,6 @@ export function DashboardFilters({
         )}
       </div>
 
-      {/* Token Type Filter */}
-      <div className="flex items-center gap-1.5">
-        {TOKEN_TYPE_OPTIONS.map((tt) => (
-          <button
-            key={tt}
-            onClick={() => toggleTokenType(tt)}
-            className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${
-              tokenTypeFilter.includes(tt)
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-secondary text-secondary-foreground border-border/50 hover:border-primary/30"
-            }`}
-          >
-            {tt}
-          </button>
-        ))}
-      </div>
-
       {/* Clear filters */}
       {hasFilters && (
         <button
