@@ -7,8 +7,8 @@ interface DashboardFiltersProps {
   allChains: string[];
   chainFilter: string[];
   setChainFilter: (v: string[]) => void;
-  rwaCategory: RwaCategory;
-  setRwaCategory: (v: RwaCategory) => void;
+  hideZeroBalances: boolean;
+  setHideZeroBalances: (v: boolean) => void;
   hideZeroBalances: boolean;
   setHideZeroBalances: (v: boolean) => void;
   onRefresh: () => void;
