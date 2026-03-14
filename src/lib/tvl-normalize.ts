@@ -1,4 +1,4 @@
-import { RawTvlRow, TokenType, ChainData, ProductData, NormalizedData } from "./tvl-types";
+import { RawTvlRow, TokenType, ChainData, ProductData, NormalizedData, ContractInfo } from "./tvl-types";
 
 type MergeKey = string;
 
