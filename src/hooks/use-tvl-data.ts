@@ -204,6 +204,10 @@ export function useTvlData(enabled = true) {
       const bridged = results[1].status === "fulfilled" ? results[1].value : null;
       const receipts = results[2].status === "fulfilled" ? results[2].value : null;
 
+      const errors = results
+        .map((r, i) => (r.status === "rejected" ? ["security", "bridged", "receipts"][i] : null))
+        .filter(Boolean);
+
       console.group("🔍 TVL Debug");
       console.log("Raw /tvl:", JSON.stringify(main, null, 2));
       console.log("Raw /tvl/bridged:", JSON.stringify(bridged, null, 2));
