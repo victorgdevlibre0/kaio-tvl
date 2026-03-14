@@ -10,7 +10,6 @@ import { toast } from "sonner";
 interface ProductTableProps {
   product: ProductData;
   chainFilter: string[];
-  tokenTypeFilter: string[];
 }
 
 export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductTableProps) {
