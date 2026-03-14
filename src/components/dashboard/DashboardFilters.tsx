@@ -140,6 +140,17 @@ export function DashboardFilters({
         <RefreshCw className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
         Refresh
       </Button>
+
+      {/* Download CSV */}
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => downloadContractsCsv(data, chainFilter, hideZeroBalances)}
+        className="gap-2"
+      >
+        <Download className="h-3.5 w-3.5" />
+        Registry CSV
+      </Button>
     </div>
   );
 }
