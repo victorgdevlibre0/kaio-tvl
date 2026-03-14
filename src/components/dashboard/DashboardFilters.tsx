@@ -25,8 +25,6 @@ export function DashboardFilters({
   allChains,
   chainFilter,
   setChainFilter,
-  tokenTypeFilter,
-  setTokenTypeFilter,
   rwaCategory,
   setRwaCategory,
   onRefresh,
