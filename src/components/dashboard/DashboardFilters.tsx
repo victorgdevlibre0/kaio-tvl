@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { RefreshCw, X } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-
+import { RefreshCw, X, Download } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { NormalizedData } from "@/lib/tvl-types";
 
 interface DashboardFiltersProps {
   allChains: string[];
@@ -13,6 +13,7 @@ interface DashboardFiltersProps {
   isRefreshing: boolean;
   autoRefresh: boolean;
   setAutoRefresh: (v: boolean) => void;
+  data: NormalizedData;
 }
 
 
