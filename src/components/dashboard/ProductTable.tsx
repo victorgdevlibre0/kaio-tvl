@@ -41,7 +41,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
         className="w-full text-left p-4 lg:p-6 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
       >
         {/* Mobile layout */}
-        <div className="md:hidden space-y-3">
+        <div className="lg:hidden space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 min-w-0">
               {(() => {
