@@ -108,6 +108,7 @@ function normalize(
   if (bridged) {
     for (const chainEntry of bridged.chains) {
       for (const asset of chainEntry.assets) {
+        if (EXCLUDED_SYMBOLS.has(asset.symbol)) continue;
         const productName = idToProduct.get(asset.instrumentId) || asset.symbol;
         const entry = getOrCreate(productName, chainEntry.chain);
         entry.supply += asset.totalSupply || 0;
