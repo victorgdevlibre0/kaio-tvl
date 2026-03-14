@@ -9,8 +9,6 @@ interface DashboardFiltersProps {
   setChainFilter: (v: string[]) => void;
   hideZeroBalances: boolean;
   setHideZeroBalances: (v: boolean) => void;
-  hideZeroBalances: boolean;
-  setHideZeroBalances: (v: boolean) => void;
   onRefresh: () => void;
   isRefreshing: boolean;
   autoRefresh: boolean;
