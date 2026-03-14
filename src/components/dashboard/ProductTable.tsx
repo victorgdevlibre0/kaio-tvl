@@ -132,20 +132,6 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                       </div>
                     </td>
                     <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>
-                    <td className="px-5 py-3 text-right text-money font-semibold">
-                      {formatFullCurrency(chain.tvl)}
-                    </td>
-                    <td className="px-5 py-3">
-                      <div className="flex flex-wrap gap-1">
-                        {chain.tokenTypes.map((tt) => (
-                          <span
-                            key={tt}
-                            className="inline-block text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground"
-                          >
-                            {tt}
-                          </span>
-                        ))}
-                      </div>
                     </td>
                   </tr>
                   {isExpanded && (
