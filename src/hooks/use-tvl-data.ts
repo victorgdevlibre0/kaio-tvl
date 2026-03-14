@@ -95,6 +95,9 @@ function normalize(
       if (asset.securityTvl > 0 || asset.securitySupply > 0) {
         entry.tokenTypes.add("Security Token");
       }
+      if (asset.address) {
+        entry.contracts.push({ address: asset.address, symbol: asset.symbol, tokenType: "Security Token" });
+      }
     }
   }
 
