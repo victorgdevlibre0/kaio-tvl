@@ -7,38 +7,41 @@
 
 @layer base {
   :root {
-    /* Raisin Black palette */
-    --background: 248 24% 10%;
+    /* Raisin Black palette — warmer purple tones to match investor app */
+    --background: 252 22% 10%;
     --foreground: 0 0% 96%;
 
-    --card: 240 20% 13%;
+    --card: 250 18% 14%;
     --card-foreground: 0 0% 96%;
 
-    --popover: 240 20% 13%;
+    --popover: 250 18% 14%;
     --popover-foreground: 0 0% 96%;
 
     /* KAIO Blue */
     --primary: 214 47% 52%;
-    --primary-foreground: 248 24% 10%;
+    --primary-foreground: 252 22% 10%;
 
-    --secondary: 228 18% 17%;
+    --secondary: 250 16% 18%;
     --secondary-foreground: 0 0% 96%;
 
-    --muted: 240 20% 13%;
-    --muted-foreground: 228 12% 50%;
+    --muted: 250 18% 14%;
+    --muted-foreground: 240 10% 52%;
 
     /* Luminous Yellow */
     --accent: 59 100% 90%;
-    --accent-foreground: 248 24% 10%;
+    --accent-foreground: 252 22% 10%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 228 18% 20%;
-    --input: 228 18% 20%;
+    --border: 250 14% 20%;
+    --input: 250 14% 20%;
     --ring: 214 47% 52%;
 
-    --radius: 0.5rem;
+    --radius: 0.625rem;
+
+    /* Surface for main content area — slightly lighter than background */
+    --surface: 252 20% 12%;
 
     /* Sky Blue for charts */
     --chart-security: 214 47% 52%;
@@ -48,13 +51,13 @@
     --kpi-green: 152 69% 47%;
     --kpi-blue: 214 47% 52%;
 
-    --sidebar-background: 248 24% 10%;
+    --sidebar-background: 252 22% 10%;
     --sidebar-foreground: 0 0% 96%;
     --sidebar-primary: 214 47% 52%;
-    --sidebar-primary-foreground: 248 24% 10%;
-    --sidebar-accent: 228 18% 17%;
+    --sidebar-primary-foreground: 252 22% 10%;
+    --sidebar-accent: 250 16% 18%;
     --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 228 18% 20%;
+    --sidebar-border: 250 14% 20%;
     --sidebar-ring: 214 47% 52%;
   }
 }
