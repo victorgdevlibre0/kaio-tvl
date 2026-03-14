@@ -38,47 +38,96 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
     <div className="glass-card rounded-lg overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-6 gap-4 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
+        className="w-full text-left p-4 sm:p-6 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
       >
-        <div className="flex items-center gap-3 sm:gap-4">
-          {(() => {
-            const meta = getTokenMeta(product.product);
-            return meta ? (
-              <img src={meta.logo} alt={product.product} className="h-8 w-8 sm:h-10 sm:w-10 brightness-0 invert" />
-            ) : (
-              <div className="h-3 w-3 rounded-full bg-accent animate-pulse-glow" />
-            );
-          })()}
-          <div className="flex flex-col text-left">
-            <h3 className="text-lg sm:text-xl font-semibold leading-tight">{product.product}</h3>
+        {/* Mobile layout */}
+        <div className="sm:hidden space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3 min-w-0">
+              {(() => {
+                const meta = getTokenMeta(product.product);
+                return meta ? (
+                  <img src={meta.logo} alt={product.product} className="h-8 w-8 brightness-0 invert shrink-0" />
+                ) : (
+                  <div className="h-3 w-3 rounded-full bg-accent animate-pulse-glow shrink-0" />
+                );
+              })()}
+              <div className="flex flex-col min-w-0">
+                <h3 className="text-base font-semibold leading-tight">{product.product}</h3>
+                {(() => {
+                  const meta = getTokenMeta(product.product);
+                  return meta ? (
+                    <span className="text-[11px] text-muted-foreground leading-tight truncate">{meta.name}</span>
+                  ) : null;
+                })()}
+              </div>
+            </div>
+            <ChevronDown
+              className={`h-4 w-4 text-muted-foreground transition-transform duration-200 shrink-0 ml-2 ${isOpen ? "rotate-180" : ""}`}
+            />
+          </div>
+          <div className="grid grid-cols-4 gap-2 pt-1">
+            <div>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Chains</p>
+              <p className="text-sm font-semibold text-money">{filteredChains.length}</p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Supply</p>
+              <p className="text-sm font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">NAV</p>
+              <p className="text-sm font-semibold text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">TVL</p>
+              <p className="text-sm font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop layout */}
+        <div className="hidden sm:flex items-center justify-between">
+          <div className="flex items-center gap-4">
             {(() => {
               const meta = getTokenMeta(product.product);
               return meta ? (
-                <span className="text-xs sm:text-sm text-muted-foreground leading-tight">{meta.name}</span>
-              ) : null;
+                <img src={meta.logo} alt={product.product} className="h-10 w-10 brightness-0 invert" />
+              ) : (
+                <div className="h-3 w-3 rounded-full bg-accent animate-pulse-glow" />
+              );
             })()}
+            <div className="flex flex-col text-left">
+              <h3 className="text-xl font-semibold leading-tight">{product.product}</h3>
+              {(() => {
+                const meta = getTokenMeta(product.product);
+                return meta ? (
+                  <span className="text-sm text-muted-foreground leading-tight">{meta.name}</span>
+                ) : null;
+              })()}
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-4 sm:gap-8 w-full sm:w-auto justify-between sm:justify-end">
-          <div className="text-left sm:text-right">
-            <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">Chains</p>
-            <p className="text-base sm:text-xl font-semibold text-money">{filteredChains.length}</p>
+          <div className="flex items-center gap-8">
+            <div className="text-right">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">Chains</p>
+              <p className="text-xl font-semibold text-money">{filteredChains.length}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
+              <p className="text-xl font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
+              <p className="text-xl font-semibold text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">TVL</p>
+              <p className="text-xl font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
+            </div>
+            <ChevronDown
+              className={`h-5 w-5 text-muted-foreground transition-transform duration-200 shrink-0 ${isOpen ? "rotate-180" : ""}`}
+            />
           </div>
-          <div className="text-left sm:text-right">
-            <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
-            <p className="text-base sm:text-xl font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
-          </div>
-          <div className="text-left sm:text-right">
-            <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
-            <p className="text-base sm:text-xl font-semibold text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
-          </div>
-          <div className="text-left sm:text-right">
-            <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">TVL</p>
-            <p className="text-base sm:text-xl font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
-          </div>
-          <ChevronDown
-            className={`h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground transition-transform duration-200 shrink-0 ${isOpen ? "rotate-180" : ""}`}
-          />
         </div>
       </button>
 
