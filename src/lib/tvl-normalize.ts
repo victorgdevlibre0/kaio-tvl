@@ -20,6 +20,7 @@ export function normalizeData(
       nav: number;
       tvl: number;
       tokenTypes: Set<TokenType>;
+      contracts: ContractInfo[];
       securityTVL: number;
       bridgedTVL: number;
       receiptTVL: number;
