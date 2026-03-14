@@ -7,8 +7,6 @@ interface DashboardFiltersProps {
   allChains: string[];
   chainFilter: string[];
   setChainFilter: (v: string[]) => void;
-  tokenTypeFilter: string[];
-  setTokenTypeFilter: (v: string[]) => void;
   rwaCategory: RwaCategory;
   setRwaCategory: (v: RwaCategory) => void;
   onRefresh: () => void;
