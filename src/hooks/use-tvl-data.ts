@@ -54,6 +54,9 @@ function normalize(
   bridged: ChainResponse | null,
   receipts: ChainResponse | null
 ): NormalizedData {
+  // Products to exclude from the dashboard
+  const EXCLUDED_PRODUCTS = new Set(["CASHx"]);
+
   // Build instrumentId → product name mapping from main endpoint
   const idToProduct = new Map<string, string>();
   if (main) {
