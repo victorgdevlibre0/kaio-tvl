@@ -195,7 +195,7 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
             })}
             {filteredChains.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-5 py-8 text-center text-muted-foreground text-sm">
+                <td colSpan={4} className="px-5 py-8 text-center text-muted-foreground text-sm">
                   No chains match the current filters
                 </td>
               </tr>
