@@ -2,7 +2,9 @@ import { useState } from "react";
 import { ProductData, TokenType } from "@/lib/tvl-types";
 import { formatFullCurrency, formatNumber } from "@/lib/format";
 import { getExplorerUrl, getExplorerLabel } from "@/lib/explorer-urls";
-import { ChevronDown, ChevronRight, ExternalLink } from "lucide-react";
+import { getChainLogo } from "@/lib/chain-logos";
+import { ChevronDown, ChevronRight, ExternalLink, Copy, Check } from "lucide-react";
+import { toast } from "sonner";
 
 interface ProductTableProps {
   product: ProductData;
@@ -12,6 +14,7 @@ interface ProductTableProps {
 
 export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductTableProps) {
   const [expandedChains, setExpandedChains] = useState<Set<string>>(new Set());
+  const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
 
   const toggleChain = (chain: string) => {
     setExpandedChains((prev) => {
@@ -20,6 +23,14 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
       else next.add(chain);
       return next;
     });
+  };
+
+  const copyAddress = (address: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(address);
+    setCopiedAddress(address);
+    toast.success("Address copied to clipboard");
+    setTimeout(() => setCopiedAddress(null), 2000);
   };
 
   const filteredChains = product.chains.filter((c) => {
@@ -73,6 +84,7 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
           <tbody>
             {filteredChains.map((chain) => {
               const isExpanded = expandedChains.has(chain.chain);
+              const logo = getChainLogo(chain.chain);
               return (
                 <>
                   <tr
@@ -87,7 +99,25 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
                       )}
                     </td>
-                    <td className="px-5 py-3 font-medium">{chain.chain}</td>
+                    <td className="px-5 py-3 font-medium">
+                      <div className="flex items-center gap-2">
+                        {logo ? (
+                          <img
+                            src={logo}
+                            alt={chain.chain}
+                            className="h-5 w-5 rounded-full"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = "none";
+                            }}
+                          />
+                        ) : (
+                          <div className="h-5 w-5 rounded-full bg-secondary flex items-center justify-center text-[10px] text-muted-foreground font-bold">
+                            {chain.chain.charAt(0)}
+                          </div>
+                        )}
+                        {chain.chain}
+                      </div>
+                    </td>
                     <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>
                     <td className="px-5 py-3 text-right text-money">{formatFullCurrency(chain.nav)}</td>
                     <td className="px-5 py-3 text-right text-money font-semibold">
@@ -146,12 +176,12 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                                 const truncated = contract.address.length > 16
                                   ? `${contract.address.slice(0, 8)}…${contract.address.slice(-6)}`
                                   : contract.address;
+                                const isCopied = copiedAddress === contract.address;
                                 return (
                                   <div key={idx} className="flex items-center gap-2 text-xs">
                                     <span className="inline-block px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground min-w-[100px]">
                                       {contract.tokenType.replace(" Token", "")}
                                     </span>
-                                    <span className="text-muted-foreground">{contract.symbol}</span>
                                     {explorerUrl ? (
                                       <a
                                         href={explorerUrl}
@@ -166,6 +196,17 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                                     ) : (
                                       <span className="font-mono text-foreground">{truncated}</span>
                                     )}
+                                    <button
+                                      onClick={(e) => copyAddress(contract.address, e)}
+                                      className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                                      title="Copy address"
+                                    >
+                                      {isCopied ? (
+                                        <Check className="h-3 w-3 text-accent" />
+                                      ) : (
+                                        <Copy className="h-3 w-3" />
+                                      )}
+                                    </button>
                                   </div>
                                 );
                               })}
