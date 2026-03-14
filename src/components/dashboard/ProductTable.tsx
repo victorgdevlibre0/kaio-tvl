@@ -114,7 +114,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
             </div>
             <div className="text-right">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
-              <p className="text-xl font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+              <p className="text-xl text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
             </div>
             <div className="text-right">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
