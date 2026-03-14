@@ -69,7 +69,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
           <div className="grid grid-cols-4 gap-2 pt-1">
             <div>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Chains</p>
-              <p className="text-sm font-semibold text-money">{filteredChains.length}</p>
+              <p className="text-sm text-money">{filteredChains.length}</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Supply</p>
