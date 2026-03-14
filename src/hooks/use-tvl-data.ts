@@ -204,6 +204,10 @@ export function useTvlData(enabled = true) {
       const bridged = results[1].status === "fulfilled" ? results[1].value : null;
       const receipts = results[2].status === "fulfilled" ? results[2].value : null;
 
+      const errors = results
+        .map((r, i) => (r.status === "rejected" ? ["security", "bridged", "receipts"][i] : null))
+        .filter(Boolean);
+
       return {
         data: normalize(main, bridged, receipts),
         errors,
