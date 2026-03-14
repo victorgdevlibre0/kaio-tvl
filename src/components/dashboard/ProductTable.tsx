@@ -111,8 +111,8 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                           {chain.chain.charAt(0)}
                         </div>
                       )}
-                      <div className="flex flex-col gap-1">
-                        <span className="leading-tight">{chain.chain}</span>
+                      <div className="flex flex-col gap-2">
+                        <span className="text-base leading-tight">{chain.chain}</span>
                         {chain.contracts && chain.contracts.length > 0 && (
                           <div className="flex flex-wrap items-center gap-1">
                             {chain.contracts.map((contract, idx) => {
