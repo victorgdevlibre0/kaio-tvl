@@ -152,6 +152,7 @@ function normalize(
     // Skip entries with no meaningful data
     const types = Array.from(entry.tokenTypes);
     if (types.length === 0 && entry.tvl === 0 && entry.supply === 0) continue;
+    if (EXCLUDED_PRODUCTS.has(entry.product)) continue;
 
     const chainData: ChainData = {
       chain: entry.chain,
