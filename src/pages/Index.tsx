@@ -84,7 +84,7 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 bg-surface/50 sm:rounded-2xl sm:my-2 sm:border sm:border-border/30">
         {errors && errors.length > 0 && (
           <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-destructive/10 border border-destructive/20 text-sm text-destructive">
             <AlertTriangle className="h-4 w-4 shrink-0" />

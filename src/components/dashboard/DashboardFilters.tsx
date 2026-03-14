@@ -105,7 +105,7 @@ export function DashboardFilters({
       <div className="relative" ref={chainRef}>
         <button
           onClick={() => setChainOpen(!chainOpen)}
-          className="flex items-center gap-2 px-3 py-2 text-sm rounded-md bg-secondary text-secondary-foreground border border-border/50 hover:border-primary/30 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-sm rounded-full bg-secondary text-secondary-foreground border border-border/40 hover:border-primary/30 transition-colors"
         >
           <span>Chains</span>
           {chainFilter.length > 0 && (
@@ -117,7 +117,7 @@ export function DashboardFilters({
         </button>
 
         {chainOpen && (
-          <div className="absolute z-50 mt-1 w-64 rounded-lg bg-card border border-border shadow-xl overflow-hidden">
+          <div className="absolute z-50 mt-1 w-64 rounded-xl bg-card border border-border/40 shadow-xl overflow-hidden">
             {/* Search input */}
             <div className="p-2 border-b border-border/50">
               <div className="relative">

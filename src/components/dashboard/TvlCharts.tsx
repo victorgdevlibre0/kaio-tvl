@@ -42,9 +42,9 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
 
   const tooltipStyle = {
     contentStyle: {
-      backgroundColor: "hsl(240 20% 13%)",
-      border: "1px solid hsl(228 18% 20%)",
-      borderRadius: "8px",
+      backgroundColor: "hsl(250 18% 14%)",
+      border: "1px solid hsl(250 14% 20%)",
+      borderRadius: "12px",
       color: "hsl(0 0% 96%)",
       fontSize: "12px",
     },
@@ -58,9 +58,9 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
         </h3>
         <ResponsiveContainer width="100%" height={240}>
           <BarChart data={productChartData} barCategoryGap="20%">
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
-            <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 12 }} axisLine={false} />
-            <YAxis tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(250 14% 20%)" />
+            <XAxis dataKey="name" tick={{ fill: "hsl(240 10% 52%)", fontSize: 12 }} axisLine={false} />
+            <YAxis tick={{ fill: "hsl(240 10% 52%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
             <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
             <Bar dataKey="tvl" fill="hsl(214 47% 52%)" radius={[4, 4, 0, 0]} />
           </BarChart>
@@ -73,9 +73,9 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
         </h3>
         <ResponsiveContainer width="100%" height={240}>
           <BarChart data={chainChartData} barCategoryGap="20%" margin={{ bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
-            <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 10 }} axisLine={false} interval={0} angle={-35} textAnchor="end" height={50} />
-            <YAxis tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(250 14% 20%)" />
+            <XAxis dataKey="name" tick={{ fill: "hsl(240 10% 52%)", fontSize: 10 }} axisLine={false} interval={0} angle={-35} textAnchor="end" height={50} />
+            <YAxis tick={{ fill: "hsl(240 10% 52%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
             <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
             <Bar dataKey="tvl" fill="hsl(214 58% 79%)" radius={[4, 4, 0, 0]} />
           </BarChart>
