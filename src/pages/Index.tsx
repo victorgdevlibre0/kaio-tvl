@@ -79,7 +79,7 @@ const Index = () => {
     <div className="min-h-screen">
       <header className="px-6 py-5">
         <div className="max-w-7xl mx-auto flex items-center justify-center">
-          <img src={kaioLogo} alt="KAIO" className="h-10" />
+          <img src={kaioLogo} alt="KAIO" className="h-14" />
           {isFetching && <Loader2 className="h-3 w-3 animate-spin text-muted-foreground absolute right-6" />}
         </div>
       </header>
