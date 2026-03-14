@@ -134,7 +134,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
       {isOpen && (
         <div className="border-t border-border/50">
           {/* Desktop table */}
-          <div className="hidden sm:block">
+          <div className="hidden md:block">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border/30">
