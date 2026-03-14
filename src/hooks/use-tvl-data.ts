@@ -167,6 +167,23 @@ function normalize(
     productMap.get(entry.product)!.push(chainData);
   }
 
+  // Deduct receipt TVL from security TVL to avoid double-counting
+  // Receipt tokens are minted from locked security tokens, so their TVL
+  // is already included in the security TVL on Ethereum.
+  for (const [, chains] of productMap) {
+    const totalReceiptTVL = chains.reduce((s, c) => s + c.breakdown.receiptTVL, 0);
+    if (totalReceiptTVL > 0) {
+      // Find the security token chain entry (Ethereum) and deduct
+      const securityChain = chains.find((c) => c.breakdown.securityTVL > 0);
+      if (securityChain) {
+        const deduction = Math.min(totalReceiptTVL, securityChain.breakdown.securityTVL);
+        securityChain.breakdown.securityTVL -= deduction;
+        securityChain.tvl -= deduction;
+        securityChain.supply -= deduction / (securityChain.nav || 1);
+      }
+    }
+  }
+
   const products: ProductData[] = [];
   const allChainsSet = new Set<string>();
 
