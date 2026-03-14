@@ -96,18 +96,18 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                   className="border-b border-border/20 hover:bg-secondary/30 transition-colors duration-150"
                 >
                   <td className="px-5 py-3 font-medium">
-                    <div className="flex items-start gap-2.5">
+                    <div className="flex items-center gap-3">
                       {logo ? (
                         <img
                           src={logo}
                           alt={chain.chain}
-                          className="h-5 w-5 rounded-full mt-0.5 shrink-0"
+                          className="h-9 w-9 rounded-full shrink-0"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.display = "none";
                           }}
                         />
                       ) : (
-                        <div className="h-5 w-5 rounded-full bg-secondary flex items-center justify-center text-[10px] text-muted-foreground font-bold mt-0.5 shrink-0">
+                        <div className="h-9 w-9 rounded-full bg-secondary flex items-center justify-center text-sm text-muted-foreground font-bold shrink-0">
                           {chain.chain.charAt(0)}
                         </div>
                       )}
