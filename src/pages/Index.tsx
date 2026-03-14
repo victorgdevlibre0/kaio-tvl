@@ -45,9 +45,17 @@ const Index = () => {
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground">Loading TVL data…</p>
+        <div className="flex flex-col items-center gap-6">
+          <div className="relative">
+            <img
+              src={kaioLogo}
+              alt="KAIO"
+              className="h-16 animate-pulse"
+            />
+            <div className="absolute -inset-4 rounded-full border-2 border-primary/20 animate-[spin_3s_linear_infinite]" />
+            <div className="absolute -inset-4 rounded-full border-t-2 border-primary animate-[spin_1.5s_linear_infinite]" />
+          </div>
+          <p className="text-sm text-muted-foreground animate-pulse">Loading TVL data…</p>
         </div>
       </div>
     );
