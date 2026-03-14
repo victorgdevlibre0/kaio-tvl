@@ -12,7 +12,7 @@ interface ProductTableProps {
   chainFilter: string[];
 }
 
-export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductTableProps) {
+export function ProductTable({ product, chainFilter }: ProductTableProps) {
   const [expandedChains, setExpandedChains] = useState<Set<string>>(new Set());
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
 
