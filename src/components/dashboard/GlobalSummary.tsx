@@ -21,7 +21,7 @@ export function GlobalSummary({ data }: GlobalSummaryProps) {
         return (
           <div
             key={kpi.label}
-            className="glass-card rounded-lg p-5 transition-all duration-200 hover:border-primary/30"
+            className="glass-card rounded-lg p-3 sm:p-5 transition-all duration-200 hover:border-primary/30"
           >
             <div className="flex items-center gap-2 mb-3">
               <Icon className="h-4 w-4 text-muted-foreground" />
