@@ -69,15 +69,15 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
           <div className="grid grid-cols-4 gap-2 pt-1">
             <div>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Chains</p>
-              <p className="text-sm font-semibold text-money">{filteredChains.length}</p>
+              <p className="text-sm text-money">{filteredChains.length}</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Supply</p>
-              <p className="text-sm font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+              <p className="text-sm text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">NAV</p>
-              <p className="text-sm font-semibold text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
+              <p className="text-sm text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">TVL</p>
@@ -110,15 +110,15 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
           <div className="flex items-center gap-8">
             <div className="text-right">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">Chains</p>
-              <p className="text-xl font-semibold text-money">{filteredChains.length}</p>
+              <p className="text-xl text-money">{filteredChains.length}</p>
             </div>
             <div className="text-right">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
-              <p className="text-xl font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+              <p className="text-xl text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
             </div>
             <div className="text-right">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
-              <p className="text-xl font-semibold text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
+              <p className="text-xl text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
             </div>
             <div className="text-right">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">TVL</p>
