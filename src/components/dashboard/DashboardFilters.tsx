@@ -9,6 +9,8 @@ interface DashboardFiltersProps {
   setChainFilter: (v: string[]) => void;
   rwaCategory: RwaCategory;
   setRwaCategory: (v: RwaCategory) => void;
+  hideZeroBalances: boolean;
+  setHideZeroBalances: (v: boolean) => void;
   onRefresh: () => void;
   isRefreshing: boolean;
   autoRefresh: boolean;
@@ -27,6 +29,8 @@ export function DashboardFilters({
   setChainFilter,
   rwaCategory,
   setRwaCategory,
+  hideZeroBalances,
+  setHideZeroBalances,
   onRefresh,
   isRefreshing,
   autoRefresh,
@@ -106,6 +110,17 @@ export function DashboardFilters({
           </div>
         )}
       </div>
+
+      {/* Hide zero balances */}
+      <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+        <input
+          type="checkbox"
+          checked={hideZeroBalances}
+          onChange={(e) => setHideZeroBalances(e.target.checked)}
+          className="rounded border-border"
+        />
+        Hide zero balances
+      </label>
 
       {/* Clear filters */}
       {hasFilters && (

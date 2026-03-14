@@ -11,9 +11,9 @@ import { NormalizedData } from "@/lib/tvl-types";
 
 const Index = () => {
   const [chainFilter, setChainFilter] = useState<string[]>([]);
-  
   const [rwaCategory, setRwaCategory] = useState<RwaCategory>("production");
   const [autoRefresh, setAutoRefresh] = useState(false);
+  const [hideZeroBalances, setHideZeroBalances] = useState(false);
 
   const { data: result, isLoading, isError, error, refetch, isFetching } = useTvlData();
 
@@ -102,6 +102,8 @@ const Index = () => {
           setChainFilter={setChainFilter}
           rwaCategory={rwaCategory}
           setRwaCategory={setRwaCategory}
+          hideZeroBalances={hideZeroBalances}
+          setHideZeroBalances={setHideZeroBalances}
           onRefresh={handleRefresh}
           isRefreshing={isFetching}
           autoRefresh={autoRefresh}
@@ -116,6 +118,7 @@ const Index = () => {
               key={product.product}
               product={product}
               chainFilter={chainFilter}
+              hideZeroBalances={hideZeroBalances}
               defaultOpen={idx === 0}
             />
           ))}

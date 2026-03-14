@@ -10,10 +10,11 @@ import { toast } from "sonner";
 interface ProductTableProps {
   product: ProductData;
   chainFilter: string[];
+  hideZeroBalances?: boolean;
   defaultOpen?: boolean;
 }
 
-export function ProductTable({ product, chainFilter, defaultOpen = false }: ProductTableProps) {
+export function ProductTable({ product, chainFilter, hideZeroBalances = false, defaultOpen = false }: ProductTableProps) {
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -27,6 +28,7 @@ export function ProductTable({ product, chainFilter, defaultOpen = false }: Prod
 
   const filteredChains = product.chains.filter((c) => {
     if (chainFilter.length > 0 && !chainFilter.includes(c.chain)) return false;
+    if (hideZeroBalances && c.tvl === 0 && c.supply === 0) return false;
     return true;
   });
 
