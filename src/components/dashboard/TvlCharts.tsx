@@ -52,7 +52,7 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div className="glass-card rounded-lg p-5">
+      <div className="glass-card rounded-lg p-3 sm:p-5">
         <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           TVL by RWA
         </h3>
