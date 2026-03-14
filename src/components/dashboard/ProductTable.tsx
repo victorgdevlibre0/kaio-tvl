@@ -52,8 +52,21 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
     <div className="glass-card rounded-lg overflow-hidden">
       <div className="flex items-center justify-between p-5 border-b border-border/50">
         <div className="flex items-center gap-3">
-          <div className="h-2 w-2 rounded-full bg-accent animate-pulse-glow" />
+          {(() => {
+            const meta = getTokenMeta(product.product);
+            return meta ? (
+              <img src={meta.logo} alt={product.product} className="h-7 w-7 brightness-0 invert" />
+            ) : (
+              <div className="h-2 w-2 rounded-full bg-accent animate-pulse-glow" />
+            );
+          })()}
           <h3 className="text-lg font-semibold">{product.product}</h3>
+          {(() => {
+            const meta = getTokenMeta(product.product);
+            return meta ? (
+              <span className="text-sm text-muted-foreground">{meta.name}</span>
+            ) : null;
+          })()}
         </div>
         <span className="text-money text-accent font-semibold">
           {formatFullCurrency(filteredTVL)}
