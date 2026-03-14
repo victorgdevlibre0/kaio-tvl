@@ -56,7 +56,7 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
         <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           TVL by RWA
         </h3>
-        <ResponsiveContainer width="100%" height={280}>
+        <ResponsiveContainer width="100%" height={240}>
           <BarChart data={productChartData} barCategoryGap="20%">
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
             <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 12 }} axisLine={false} />
