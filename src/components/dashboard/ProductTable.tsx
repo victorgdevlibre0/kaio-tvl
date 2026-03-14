@@ -109,7 +109,7 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                   {isExpanded && (
                     <tr key={`${chain.chain}-expanded`} className="bg-muted/30">
                       <td colSpan={6} className="px-10 py-4">
-                        <div className="grid grid-cols-3 gap-6">
+                        <div className="grid grid-cols-3 gap-6 mb-4">
                           <div>
                             <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
                               Security TVL
@@ -135,6 +135,43 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                             </p>
                           </div>
                         </div>
+                        {chain.contracts && chain.contracts.length > 0 && (
+                          <div className="border-t border-border/30 pt-3">
+                            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                              Contract Addresses
+                            </p>
+                            <div className="space-y-1.5">
+                              {chain.contracts.map((contract, idx) => {
+                                const explorerUrl = getExplorerUrl(chain.chain, contract.address);
+                                const truncated = contract.address.length > 16
+                                  ? `${contract.address.slice(0, 8)}…${contract.address.slice(-6)}`
+                                  : contract.address;
+                                return (
+                                  <div key={idx} className="flex items-center gap-2 text-xs">
+                                    <span className="inline-block px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground min-w-[100px]">
+                                      {contract.tokenType.replace(" Token", "")}
+                                    </span>
+                                    <span className="text-muted-foreground">{contract.symbol}</span>
+                                    {explorerUrl ? (
+                                      <a
+                                        href={explorerUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="font-mono text-accent hover:underline inline-flex items-center gap-1"
+                                      >
+                                        {truncated}
+                                        <ExternalLink className="h-3 w-3" />
+                                      </a>
+                                    ) : (
+                                      <span className="font-mono text-foreground">{truncated}</span>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
                       </td>
                     </tr>
                   )}
