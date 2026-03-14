@@ -38,7 +38,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
     <div className="glass-card rounded-lg overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left p-4 sm:p-6 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
+        className="w-full text-left p-4 md:p-6 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
       >
         {/* Mobile layout */}
         <div className="sm:hidden space-y-3">
