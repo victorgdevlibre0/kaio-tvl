@@ -20,11 +20,11 @@ function matchesChainFilter(chain: string, chainFilter: string[]): boolean {
   return chainFilter.length === 0 || chainFilter.includes(chain);
 }
 
-export function TvlCharts({ data, chainFilter, tokenTypeFilter }: TvlChartsProps) {
+export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
   // TVL by Product
   const productChartData = data.products.map((p) => {
     const filteredTVL = p.chains
-      .filter((c) => matchesFilters(c.chain, c.tokenTypes, chainFilter, tokenTypeFilter))
+      .filter((c) => matchesChainFilter(c.chain, chainFilter))
       .reduce((s, c) => s + c.tvl, 0);
     return { name: p.product, tvl: filteredTVL };
   }).filter(d => d.tvl > 0);
