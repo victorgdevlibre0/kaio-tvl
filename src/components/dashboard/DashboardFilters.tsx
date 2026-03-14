@@ -117,7 +117,7 @@ export function DashboardFilters({
         </button>
 
         {chainOpen && (
-          <div className="absolute z-50 mt-1 w-64 rounded-lg bg-card border border-border shadow-xl overflow-hidden">
+          <div className="absolute z-50 mt-1 w-64 rounded-xl bg-card border border-border/40 shadow-xl overflow-hidden">
             {/* Search input */}
             <div className="p-2 border-b border-border/50">
               <div className="relative">
