@@ -87,7 +87,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
         </div>
 
         {/* Desktop layout */}
-        <div className="hidden sm:flex items-center justify-between">
+        <div className="hidden md:flex items-center justify-between">
           <div className="flex items-center gap-4">
             {(() => {
               const meta = getTokenMeta(product.product);
