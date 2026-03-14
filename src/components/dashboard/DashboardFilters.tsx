@@ -1,14 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { RefreshCw, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { RwaCategory } from "@/lib/product-categories";
+
 
 interface DashboardFiltersProps {
   allChains: string[];
   chainFilter: string[];
   setChainFilter: (v: string[]) => void;
-  rwaCategory: RwaCategory;
-  setRwaCategory: (v: RwaCategory) => void;
   hideZeroBalances: boolean;
   setHideZeroBalances: (v: boolean) => void;
   onRefresh: () => void;
@@ -17,18 +15,11 @@ interface DashboardFiltersProps {
   setAutoRefresh: (v: boolean) => void;
 }
 
-const RWA_CATEGORY_OPTIONS: { value: RwaCategory; label: string }[] = [
-  { value: "production", label: "Production RWAs" },
-  { value: "test", label: "Test RWAs" },
-  { value: "all", label: "All" },
-];
 
 export function DashboardFilters({
   allChains,
   chainFilter,
   setChainFilter,
-  rwaCategory,
-  setRwaCategory,
   hideZeroBalances,
   setHideZeroBalances,
   onRefresh,
@@ -57,27 +48,10 @@ export function DashboardFilters({
     );
   };
 
-  const hasFilters = chainFilter.length > 0 || rwaCategory !== "production";
+  const hasFilters = chainFilter.length > 0;
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      {/* RWA Category Filter */}
-      <div className="flex items-center gap-1 rounded-lg bg-secondary/50 p-0.5">
-        {RWA_CATEGORY_OPTIONS.map((opt) => (
-          <button
-            key={opt.value}
-            onClick={() => setRwaCategory(opt.value)}
-            className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
-              rwaCategory === opt.value
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-
       {/* Chain Filter */}
       <div className="relative" ref={chainRef}>
         <button
@@ -127,7 +101,6 @@ export function DashboardFilters({
         <button
           onClick={() => {
             setChainFilter([]);
-            setRwaCategory("production");
           }}
           className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
