@@ -4,6 +4,7 @@ import { NormalizedData, ProductData, ChainData, TokenType, ContractInfo } from 
 const BASE = "https://api.l1-prod.librecapital.com/api/v1/tvl";
 
 interface MainAsset {
+  address: string;
   symbol: string;
   instrumentId: string;
   latestNav: number;
