@@ -113,21 +113,26 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                           {chain.contracts.map((contract, idx) => {
                             const explorerUrl = getExplorerUrl(chain.chain, contract.address);
                             const isCopied = copiedAddress === contract.address;
-                            if (!explorerUrl) return null;
+                            const label = contract.tokenType === "Receipt Token" ? "Receipt" : "Security";
                             return (
-                              <div key={idx} className="relative group">
-                                <a
-                                  href={explorerUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center justify-center h-5 w-5 rounded bg-secondary/80 text-muted-foreground hover:text-accent hover:bg-secondary transition-colors"
-                                  title={`${contract.tokenType}: ${contract.address}`}
-                                >
-                                  <ExternalLink className="h-3 w-3" />
-                                </a>
+                              <div key={idx} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary/80 text-xs">
+                                {explorerUrl ? (
+                                  <a
+                                    href={explorerUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-muted-foreground hover:text-accent transition-colors inline-flex items-center gap-1"
+                                    title={contract.address}
+                                  >
+                                    <span>{label}</span>
+                                    <ExternalLink className="h-3 w-3" />
+                                  </a>
+                                ) : (
+                                  <span className="text-muted-foreground">{label}</span>
+                                )}
                                 <button
                                   onClick={(e) => copyAddress(contract.address, e)}
-                                  className="absolute -right-5 top-0 hidden group-hover:inline-flex items-center justify-center h-5 w-5 rounded bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+                                  className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
                                   title="Copy address"
                                 >
                                   {isCopied ? (
