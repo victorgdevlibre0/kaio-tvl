@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { NormalizedData, ProductData, ChainData, TokenType } from "@/lib/tvl-types";
+import { NormalizedData, ProductData, ChainData, TokenType, ContractInfo } from "@/lib/tvl-types";
 
 const BASE = "https://api.l1-prod.librecapital.com/api/v1/tvl";
 
 interface MainAsset {
+  address: string;
   symbol: string;
   instrumentId: string;
   latestNav: number;
@@ -18,6 +19,7 @@ interface MainAsset {
 }
 
 interface ChainAsset {
+  address: string;
   symbol: string;
   instrumentId: string;
   latestNav: number | null;
@@ -68,6 +70,7 @@ function normalize(
     nav: number;
     tvl: number;
     tokenTypes: Set<TokenType>;
+    contracts: ContractInfo[];
     securityTVL: number;
     bridgedTVL: number;
     receiptTVL: number;
@@ -77,7 +80,7 @@ function normalize(
     const k = `${product}|||${chain}`;
     let entry = map.get(k);
     if (!entry) {
-      entry = { product, chain, supply: 0, nav: 0, tvl: 0, tokenTypes: new Set(), securityTVL: 0, bridgedTVL: 0, receiptTVL: 0 };
+      entry = { product, chain, supply: 0, nav: 0, tvl: 0, tokenTypes: new Set(), contracts: [], securityTVL: 0, bridgedTVL: 0, receiptTVL: 0 };
       map.set(k, entry);
     }
     return entry;
@@ -94,6 +97,9 @@ function normalize(
       if (asset.securityTvl > 0 || asset.securitySupply > 0) {
         entry.tokenTypes.add("Security Token");
       }
+      if (asset.address) {
+        entry.contracts.push({ address: asset.address, symbol: asset.symbol, tokenType: "Security Token" });
+      }
     }
   }
 
@@ -109,6 +115,9 @@ function normalize(
         entry.bridgedTVL += asset.tvl || 0;
         if (asset.tvl > 0 || asset.totalSupply > 0) {
           entry.tokenTypes.add("Bridged Security Token");
+        }
+        if (asset.address) {
+          entry.contracts.push({ address: asset.address, symbol: asset.symbol, tokenType: "Bridged Security Token" });
         }
       }
     }
@@ -127,6 +136,9 @@ function normalize(
         if (asset.tvl > 0 || asset.totalSupply > 0) {
           entry.tokenTypes.add("Receipt Token");
         }
+        if (asset.address) {
+          entry.contracts.push({ address: asset.address, symbol: asset.symbol, tokenType: "Receipt Token" });
+        }
       }
     }
   }
@@ -144,6 +156,7 @@ function normalize(
       nav: entry.nav,
       tvl: entry.tvl,
       tokenTypes: types.length > 0 ? types : ["Security Token"],
+      contracts: entry.contracts,
       breakdown: {
         securityTVL: entry.securityTVL,
         bridgedTVL: entry.bridgedTVL,

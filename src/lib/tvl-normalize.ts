@@ -1,4 +1,4 @@
-import { RawTvlRow, TokenType, ChainData, ProductData, NormalizedData } from "./tvl-types";
+import { RawTvlRow, TokenType, ChainData, ProductData, NormalizedData, ContractInfo } from "./tvl-types";
 
 type MergeKey = string;
 
@@ -20,6 +20,7 @@ export function normalizeData(
       nav: number;
       tvl: number;
       tokenTypes: Set<TokenType>;
+      contracts: ContractInfo[];
       securityTVL: number;
       bridgedTVL: number;
       receiptTVL: number;
@@ -38,6 +39,7 @@ export function normalizeData(
           nav: 0,
           tvl: 0,
           tokenTypes: new Set(),
+          contracts: [],
           securityTVL: 0,
           bridgedTVL: 0,
           receiptTVL: 0,
@@ -65,6 +67,7 @@ export function normalizeData(
       nav: entry.nav,
       tvl: entry.tvl,
       tokenTypes: Array.from(entry.tokenTypes),
+      contracts: entry.contracts,
       breakdown: {
         securityTVL: entry.securityTVL,
         bridgedTVL: entry.bridgedTVL,

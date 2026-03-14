@@ -8,12 +8,19 @@ export interface RawTvlRow {
   tvl: number;
 }
 
+export interface ContractInfo {
+  address: string;
+  symbol: string;
+  tokenType: TokenType;
+}
+
 export interface ChainData {
   chain: string;
   supply: number;
   nav: number;
   tvl: number;
   tokenTypes: TokenType[];
+  contracts: ContractInfo[];
   breakdown: {
     securityTVL: number;
     bridgedTVL: number;
