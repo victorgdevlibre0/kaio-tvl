@@ -67,6 +67,7 @@ export function normalizeData(
       nav: entry.nav,
       tvl: entry.tvl,
       tokenTypes: Array.from(entry.tokenTypes),
+      contracts: entry.contracts,
       breakdown: {
         securityTVL: entry.securityTVL,
         bridgedTVL: entry.bridgedTVL,

@@ -154,6 +154,7 @@ function normalize(
       nav: entry.nav,
       tvl: entry.tvl,
       tokenTypes: types.length > 0 ? types : ["Security Token"],
+      contracts: entry.contracts,
       breakdown: {
         securityTVL: entry.securityTVL,
         bridgedTVL: entry.bridgedTVL,
