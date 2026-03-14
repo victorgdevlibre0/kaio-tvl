@@ -65,15 +65,15 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
         <div className="flex items-center gap-8">
           <div className="text-right">
             <p className="text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
-            <p className="text-base font-medium text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+            <p className="text-xl font-medium text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
           </div>
           <div className="text-right">
             <p className="text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
-            <p className="text-base font-medium text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
+            <p className="text-xl font-medium text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
           </div>
           <div className="text-right">
             <p className="text-xs uppercase tracking-wider text-muted-foreground">TVL</p>
-            <p className="text-lg font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
+            <p className="text-2xl font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
           </div>
         </div>
       </div>
