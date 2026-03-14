@@ -1,19 +1,21 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTvlData } from "@/hooks/use-tvl-data";
 import { GlobalSummary } from "@/components/dashboard/GlobalSummary";
 import { TvlCharts } from "@/components/dashboard/TvlCharts";
 import { ProductTable } from "@/components/dashboard/ProductTable";
 import { DashboardFilters } from "@/components/dashboard/DashboardFilters";
+import { isProductVisible, RwaCategory } from "@/lib/product-categories";
 import { Loader2, AlertTriangle } from "lucide-react";
+import { NormalizedData } from "@/lib/tvl-types";
 
 const Index = () => {
   const [chainFilter, setChainFilter] = useState<string[]>([]);
   const [tokenTypeFilter, setTokenTypeFilter] = useState<string[]>([]);
+  const [rwaCategory, setRwaCategory] = useState<RwaCategory>("production");
   const [autoRefresh, setAutoRefresh] = useState(false);
 
   const { data: result, isLoading, isError, error, refetch, isFetching } = useTvlData();
 
-  // Auto-refresh every 4 hours
   useEffect(() => {
     if (!autoRefresh) return;
     const interval = setInterval(() => refetch(), 4 * 60 * 60 * 1000);
@@ -23,6 +25,21 @@ const Index = () => {
   const handleRefresh = useCallback(() => {
     refetch();
   }, [refetch]);
+
+  // Filter data by RWA category
+  const filteredData = useMemo<NormalizedData | null>(() => {
+    if (!result?.data) return null;
+    const data = result.data;
+    const products = data.products.filter((p) => isProductVisible(p.product, rwaCategory));
+    const allChainsSet = new Set<string>();
+    products.forEach((p) => p.chains.forEach((c) => allChainsSet.add(c.chain)));
+    return {
+      products,
+      allChains: Array.from(allChainsSet).sort(),
+      allProducts: products.map((p) => p.product),
+      totalTVL: products.reduce((s, p) => s + p.totalTVL, 0),
+    };
+  }, [result?.data, rwaCategory]);
 
   if (isLoading) {
     return (
@@ -35,7 +52,7 @@ const Index = () => {
     );
   }
 
-  if (isError || !result) {
+  if (isError || !result || !filteredData) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="glass-card rounded-lg p-8 max-w-md text-center">
@@ -55,11 +72,10 @@ const Index = () => {
     );
   }
 
-  const { data, errors } = result;
+  const { errors } = result;
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
       <header className="border-b border-border/50 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -76,7 +92,6 @@ const Index = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
-        {/* API warnings */}
         {errors && errors.length > 0 && (
           <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-destructive/10 border border-destructive/20 text-sm text-destructive">
             <AlertTriangle className="h-4 w-4 shrink-0" />
@@ -86,28 +101,26 @@ const Index = () => {
           </div>
         )}
 
-        {/* Global Summary */}
-        <GlobalSummary data={data} />
+        <GlobalSummary data={filteredData} />
 
-        {/* Filters */}
         <DashboardFilters
-          allChains={data.allChains}
+          allChains={filteredData.allChains}
           chainFilter={chainFilter}
           setChainFilter={setChainFilter}
           tokenTypeFilter={tokenTypeFilter}
           setTokenTypeFilter={setTokenTypeFilter}
+          rwaCategory={rwaCategory}
+          setRwaCategory={setRwaCategory}
           onRefresh={handleRefresh}
           isRefreshing={isFetching}
           autoRefresh={autoRefresh}
           setAutoRefresh={setAutoRefresh}
         />
 
-        {/* Charts */}
-        <TvlCharts data={data} chainFilter={chainFilter} tokenTypeFilter={tokenTypeFilter} />
+        <TvlCharts data={filteredData} chainFilter={chainFilter} tokenTypeFilter={tokenTypeFilter} />
 
-        {/* Product Sections */}
         <div className="space-y-6">
-          {data.products.map((product) => (
+          {filteredData.products.map((product) => (
             <ProductTable
               key={product.product}
               product={product}
