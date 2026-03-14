@@ -38,10 +38,10 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
     <div className="glass-card rounded-lg overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left p-4 sm:p-6 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
+        className="w-full text-left p-4 lg:p-6 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
       >
         {/* Mobile layout */}
-        <div className="sm:hidden space-y-3">
+        <div className="lg:hidden space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 min-w-0">
               {(() => {
@@ -87,7 +87,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
         </div>
 
         {/* Desktop layout */}
-        <div className="hidden sm:flex items-center justify-between">
+        <div className="hidden lg:flex items-center justify-between">
           <div className="flex items-center gap-4">
             {(() => {
               const meta = getTokenMeta(product.product);
@@ -134,7 +134,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
       {isOpen && (
         <div className="border-t border-border/50">
           {/* Desktop table */}
-          <div className="hidden sm:block">
+          <div className="hidden lg:block">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border/30">
@@ -236,7 +236,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
           </div>
 
           {/* Mobile card list */}
-          <div className="sm:hidden divide-y divide-border/20">
+          <div className="lg:hidden divide-y divide-border/20">
             {filteredChains.map((chain) => {
               const logo = getChainLogo(chain.chain);
               return (
