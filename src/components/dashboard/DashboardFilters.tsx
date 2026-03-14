@@ -53,15 +53,7 @@ export function DashboardFilters({
     );
   };
 
-  const toggleTokenType = (tt: string) => {
-    setTokenTypeFilter(
-      tokenTypeFilter.includes(tt)
-        ? tokenTypeFilter.filter((t) => t !== tt)
-        : [...tokenTypeFilter, tt]
-    );
-  };
-
-  const hasFilters = chainFilter.length > 0 || tokenTypeFilter.length > 0 || rwaCategory !== "production";
+  const hasFilters = chainFilter.length > 0 || rwaCategory !== "production";
 
   return (
     <div className="flex flex-wrap items-center gap-3">
