@@ -77,11 +77,11 @@ export function TvlCharts({ data, chainFilter, tokenTypeFilter }: TvlChartsProps
         </h3>
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={productChartData} barCategoryGap="20%">
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(222 20% 18%)" />
-            <XAxis dataKey="name" tick={{ fill: "hsl(215 20% 55%)", fontSize: 12 }} axisLine={false} />
-            <YAxis tick={{ fill: "hsl(215 20% 55%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
+            <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 12 }} axisLine={false} />
+            <YAxis tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
             <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
-            <Bar dataKey="tvl" fill="hsl(210 100% 56%)" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="tvl" fill="hsl(214 47% 52%)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
