@@ -11,7 +11,7 @@ import { NormalizedData } from "@/lib/tvl-types";
 
 const Index = () => {
   const [chainFilter, setChainFilter] = useState<string[]>([]);
-  const [tokenTypeFilter, setTokenTypeFilter] = useState<string[]>([]);
+  
   const [rwaCategory, setRwaCategory] = useState<RwaCategory>("production");
   const [autoRefresh, setAutoRefresh] = useState(false);
 
