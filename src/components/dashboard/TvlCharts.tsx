@@ -92,14 +92,14 @@ export function TvlCharts({ data, chainFilter, tokenTypeFilter }: TvlChartsProps
         </h3>
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={chainChartData} barCategoryGap="20%">
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(222 20% 18%)" />
-            <XAxis dataKey="name" tick={{ fill: "hsl(215 20% 55%)", fontSize: 11 }} axisLine={false} />
-            <YAxis tick={{ fill: "hsl(215 20% 55%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
+            <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} />
+            <YAxis tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
             <Tooltip {...tooltipStyle} formatter={(value: number, name: string) => [formatCurrency(value), name.charAt(0).toUpperCase() + name.slice(1)]} />
-            <Legend wrapperStyle={{ fontSize: "12px", color: "hsl(215 20% 55%)" }} />
-            <Bar dataKey="security" stackId="a" fill="hsl(210 100% 56%)" name="Security" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="bridged" stackId="a" fill="hsl(168 72% 45%)" name="Bridged" />
-            <Bar dataKey="receipt" stackId="a" fill="hsl(280 60% 55%)" name="Receipt" radius={[4, 4, 0, 0]} />
+            <Legend wrapperStyle={{ fontSize: "12px", color: "hsl(228 12% 50%)" }} />
+            <Bar dataKey="security" stackId="a" fill="hsl(214 47% 52%)" name="Security" radius={[0, 0, 0, 0]} />
+            <Bar dataKey="bridged" stackId="a" fill="hsl(214 58% 79%)" name="Bridged" />
+            <Bar dataKey="receipt" stackId="a" fill="hsl(59 100% 90%)" name="Receipt" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
