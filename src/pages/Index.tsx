@@ -106,6 +106,7 @@ const Index = () => {
           isRefreshing={isFetching}
           autoRefresh={autoRefresh}
           setAutoRefresh={setAutoRefresh}
+          data={filteredData}
         />
 
         <TvlCharts data={filteredData} chainFilter={chainFilter} />
