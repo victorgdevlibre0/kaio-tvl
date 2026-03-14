@@ -27,6 +27,7 @@ export function DashboardFilters({
   isRefreshing,
   autoRefresh,
   setAutoRefresh,
+  data,
 }: DashboardFiltersProps) {
   const [chainOpen, setChainOpen] = useState(false);
   const chainRef = useRef<HTMLDivElement>(null);
