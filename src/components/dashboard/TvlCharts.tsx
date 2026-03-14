@@ -61,10 +61,10 @@ export function TvlCharts({ data, chainFilter, tokenTypeFilter }: TvlChartsProps
 
   const tooltipStyle = {
     contentStyle: {
-      backgroundColor: "hsl(222 41% 11%)",
-      border: "1px solid hsl(222 20% 18%)",
+      backgroundColor: "hsl(240 20% 13%)",
+      border: "1px solid hsl(228 18% 20%)",
       borderRadius: "8px",
-      color: "hsl(210 40% 96%)",
+      color: "hsl(0 0% 96%)",
       fontSize: "12px",
     },
   };
