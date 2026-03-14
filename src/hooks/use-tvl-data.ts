@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { NormalizedData, ProductData, ChainData, TokenType, ContractInfo } from "@/lib/tvl-types";
+import { EXCLUDED_SYMBOLS } from "@/lib/product-categories";
 
 const BASE = "https://api.l1-prod.librecapital.com/api/v1/tvl";
 
@@ -107,6 +108,7 @@ function normalize(
   if (bridged) {
     for (const chainEntry of bridged.chains) {
       for (const asset of chainEntry.assets) {
+        if (EXCLUDED_SYMBOLS.has(asset.symbol)) continue;
         const productName = idToProduct.get(asset.instrumentId) || asset.symbol;
         const entry = getOrCreate(productName, chainEntry.chain);
         entry.supply += asset.totalSupply || 0;
@@ -127,6 +129,7 @@ function normalize(
   if (receipts) {
     for (const chainEntry of receipts.chains) {
       for (const asset of chainEntry.assets) {
+        if (EXCLUDED_SYMBOLS.has(asset.symbol)) continue;
         const productName = idToProduct.get(asset.instrumentId) || asset.symbol;
         const entry = getOrCreate(productName, chainEntry.chain);
         entry.supply += asset.totalSupply || 0;
