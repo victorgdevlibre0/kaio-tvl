@@ -9,6 +9,8 @@ interface DashboardFiltersProps {
   setChainFilter: (v: string[]) => void;
   rwaCategory: RwaCategory;
   setRwaCategory: (v: RwaCategory) => void;
+  hideZeroBalances: boolean;
+  setHideZeroBalances: (v: boolean) => void;
   onRefresh: () => void;
   isRefreshing: boolean;
   autoRefresh: boolean;
