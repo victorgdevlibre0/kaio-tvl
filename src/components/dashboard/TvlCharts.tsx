@@ -29,21 +29,17 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
     return { name: p.product, tvl: filteredTVL };
   }).filter(d => d.tvl > 0);
 
-  // TVL by Chain stacked
-  const chainMap = new Map<string, { security: number; bridged: number; receipt: number }>();
+  // TVL by Chain
+  const chainMap = new Map<string, number>();
   for (const p of data.products) {
     for (const c of p.chains) {
-      if (!matchesFilters(c.chain, c.tokenTypes, chainFilter, tokenTypeFilter)) continue;
-      const existing = chainMap.get(c.chain) || { security: 0, bridged: 0, receipt: 0 };
-      existing.security += c.breakdown.securityTVL;
-      existing.bridged += c.breakdown.bridgedTVL;
-      existing.receipt += c.breakdown.receiptTVL;
-      chainMap.set(c.chain, existing);
+      if (!matchesChainFilter(c.chain, chainFilter)) continue;
+      chainMap.set(c.chain, (chainMap.get(c.chain) || 0) + c.tvl);
     }
   }
   const chainChartData = Array.from(chainMap.entries())
-    .map(([chain, vals]) => ({ name: chain, ...vals }))
-    .sort((a, b) => (b.security + b.bridged + b.receipt) - (a.security + a.bridged + a.receipt));
+    .map(([chain, tvl]) => ({ name: chain, tvl }))
+    .sort((a, b) => b.tvl - a.tvl);
 
   const tooltipStyle = {
     contentStyle: {
