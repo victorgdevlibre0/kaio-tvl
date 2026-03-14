@@ -70,9 +70,20 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
             })()}
           </div>
         </div>
-        <span className="text-money text-accent font-semibold">
-          {formatFullCurrency(filteredTVL)}
-        </span>
+        <div className="flex items-center gap-6">
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Supply</p>
+            <p className="text-sm font-medium text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">NAV</p>
+            <p className="text-sm font-medium text-money">{formatFullCurrency(filteredChains.reduce((s, c) => s + c.nav, 0))}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">TVL</p>
+            <p className="text-sm font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
+          </div>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
