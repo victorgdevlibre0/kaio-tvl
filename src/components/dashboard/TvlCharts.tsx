@@ -7,7 +7,6 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
-  Legend,
 } from "recharts";
 import { formatCurrency } from "@/lib/format";
 
