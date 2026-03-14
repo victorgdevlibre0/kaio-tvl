@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { NormalizedData, ProductData, ChainData, TokenType, ContractInfo } from "@/lib/tvl-types";
+import { EXCLUDED_SYMBOLS } from "@/lib/product-categories";
 
 const BASE = "https://api.l1-prod.librecapital.com/api/v1/tvl";
 
