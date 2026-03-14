@@ -114,6 +114,9 @@ function normalize(
         if (asset.tvl > 0 || asset.totalSupply > 0) {
           entry.tokenTypes.add("Bridged Security Token");
         }
+        if (asset.address) {
+          entry.contracts.push({ address: asset.address, symbol: asset.symbol, tokenType: "Bridged Security Token" });
+        }
       }
     }
   }
