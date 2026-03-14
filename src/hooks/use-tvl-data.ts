@@ -134,6 +134,9 @@ function normalize(
         if (asset.tvl > 0 || asset.totalSupply > 0) {
           entry.tokenTypes.add("Receipt Token");
         }
+        if (asset.address) {
+          entry.contracts.push({ address: asset.address, symbol: asset.symbol, tokenType: "Receipt Token" });
+        }
       }
     }
   }
