@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProductData, TokenType } from "@/lib/tvl-types";
+import { ProductData } from "@/lib/tvl-types";
 import { formatFullCurrency, formatNumber } from "@/lib/format";
 import { getExplorerUrl, getExplorerLabel } from "@/lib/explorer-urls";
 import { getChainLogo } from "@/lib/chain-logos";
