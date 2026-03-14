@@ -77,11 +77,8 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
             <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} />
             <YAxis tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
-            <Tooltip {...tooltipStyle} formatter={(value: number, name: string) => [formatCurrency(value), name.charAt(0).toUpperCase() + name.slice(1)]} />
-            <Legend wrapperStyle={{ fontSize: "12px", color: "hsl(228 12% 50%)" }} />
-            <Bar dataKey="security" stackId="a" fill="hsl(214 47% 52%)" name="Security" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="bridged" stackId="a" fill="hsl(214 58% 79%)" name="Bridged" />
-            <Bar dataKey="receipt" stackId="a" fill="hsl(59 100% 90%)" name="Receipt" radius={[4, 4, 0, 0]} />
+            <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
+            <Bar dataKey="tvl" fill="hsl(214 58% 79%)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
