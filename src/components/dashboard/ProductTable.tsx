@@ -118,7 +118,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
             </div>
             <div className="text-right">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
-              <p className="text-xl font-semibold text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
+              <p className="text-xl text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
             </div>
             <div className="text-right">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">TVL</p>
