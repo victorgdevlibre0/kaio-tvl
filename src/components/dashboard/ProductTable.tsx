@@ -70,9 +70,20 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
             })()}
           </div>
         </div>
-        <span className="text-money text-accent font-semibold">
-          {formatFullCurrency(filteredTVL)}
-        </span>
+        <div className="flex items-center gap-6">
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Supply</p>
+            <p className="text-sm font-medium text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">NAV</p>
+            <p className="text-sm font-medium text-money">{formatFullCurrency(filteredChains.reduce((s, c) => s + c.nav, 0))}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">TVL</p>
+            <p className="text-sm font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
+          </div>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
@@ -85,9 +96,6 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
               </th>
               <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
                 Supply
-              </th>
-              <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
-                NAV
               </th>
               <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
                 TVL On Chain
@@ -135,7 +143,6 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                       </div>
                     </td>
                     <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>
-                    <td className="px-5 py-3 text-right text-money">{formatFullCurrency(chain.nav)}</td>
                     <td className="px-5 py-3 text-right text-money font-semibold">
                       {formatFullCurrency(chain.tvl)}
                     </td>
@@ -154,7 +161,7 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                   </tr>
                   {isExpanded && (
                     <tr key={`${chain.chain}-expanded`} className="bg-muted/30">
-                      <td colSpan={6} className="px-10 py-4">
+                      <td colSpan={5} className="px-10 py-4">
                         <div className="grid grid-cols-3 gap-6 mb-4">
                           <div>
                             <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
@@ -237,7 +244,7 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
             })}
             {filteredChains.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-5 py-8 text-center text-muted-foreground text-sm">
+                <td colSpan={5} className="px-5 py-8 text-center text-muted-foreground text-sm">
                   No chains match the current filters
                 </td>
               </tr>
