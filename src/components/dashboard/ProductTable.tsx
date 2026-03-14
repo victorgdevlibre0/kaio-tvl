@@ -84,17 +84,18 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
 
       {isOpen && (
         <div className="border-t border-border/50">
-          <div className="overflow-x-auto">
+          {/* Desktop table */}
+          <div className="hidden sm:block">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border/30">
-                  <th className="text-left text-xs font-medium uppercase tracking-wider text-muted-foreground px-4 sm:px-5 py-3">
+                  <th className="text-left text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
                     Chain
                   </th>
-                  <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-4 sm:px-5 py-3">
+                  <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
                     Supply
                   </th>
-                  <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-4 sm:px-5 py-3">
+                  <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
                     TVL On Chain
                   </th>
                 </tr>
@@ -107,24 +108,24 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
                       key={chain.chain}
                       className="border-b border-border/20 hover:bg-secondary/30 transition-colors duration-150"
                     >
-                      <td className="px-4 sm:px-5 py-3 font-medium">
-                        <div className="flex items-center gap-3 sm:gap-4">
+                      <td className="px-5 py-3 font-medium">
+                        <div className="flex items-center gap-4">
                           {logo ? (
                             <img
                               src={logo}
                               alt={chain.chain}
-                              className="h-7 w-7 sm:h-9 sm:w-9 rounded-full shrink-0"
+                              className="h-9 w-9 rounded-full shrink-0"
                               onError={(e) => {
                                 (e.target as HTMLImageElement).style.display = "none";
                               }}
                             />
                           ) : (
-                            <div className="h-7 w-7 sm:h-9 sm:w-9 rounded-full bg-secondary flex items-center justify-center text-xs sm:text-sm text-muted-foreground font-bold shrink-0">
+                            <div className="h-9 w-9 rounded-full bg-secondary flex items-center justify-center text-sm text-muted-foreground font-bold shrink-0">
                               {chain.chain.charAt(0)}
                             </div>
                           )}
-                          <div className="flex flex-col gap-1 sm:gap-2 min-w-0">
-                            <span className="text-sm sm:text-base leading-tight truncate">{chain.chain}</span>
+                          <div className="flex flex-col gap-2 min-w-0">
+                            <span className="text-base leading-tight">{chain.chain}</span>
                             {chain.contracts && chain.contracts.length > 0 && (
                               <div className="flex flex-wrap items-center gap-1">
                                 {chain.contracts.map((contract, idx) => {
@@ -167,8 +168,8 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 sm:px-5 py-3 text-right text-sm sm:text-base text-money">{formatNumber(chain.supply)}</td>
-                      <td className="px-4 sm:px-5 py-3 text-right text-sm sm:text-base text-money font-semibold">
+                      <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>
+                      <td className="px-5 py-3 text-right text-money font-semibold">
                         {formatFullCurrency(chain.tvl)}
                       </td>
                     </tr>
@@ -176,13 +177,88 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
                 })}
                 {filteredChains.length === 0 && (
                   <tr>
-                    <td colSpan={3} className="px-4 sm:px-5 py-8 text-center text-muted-foreground text-sm">
+                    <td colSpan={3} className="px-5 py-8 text-center text-muted-foreground text-sm">
                       No chains match the current filters
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile card list */}
+          <div className="sm:hidden divide-y divide-border/20">
+            {filteredChains.map((chain) => {
+              const logo = getChainLogo(chain.chain);
+              return (
+                <div key={chain.chain} className="px-4 py-3 space-y-2">
+                  <div className="flex items-center gap-3">
+                    {logo ? (
+                      <img
+                        src={logo}
+                        alt={chain.chain}
+                        className="h-7 w-7 rounded-full shrink-0"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = "none";
+                        }}
+                      />
+                    ) : (
+                      <div className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center text-xs text-muted-foreground font-bold shrink-0">
+                        {chain.chain.charAt(0)}
+                      </div>
+                    )}
+                    <span className="text-sm font-medium flex-1">{chain.chain}</span>
+                    <span className="text-sm font-semibold text-money">{formatFullCurrency(chain.tvl)}</span>
+                  </div>
+                  <div className="flex items-center justify-between pl-10">
+                    <span className="text-xs text-muted-foreground">Supply: <span className="text-money">{formatNumber(chain.supply)}</span></span>
+                    {chain.contracts && chain.contracts.length > 0 && (
+                      <div className="flex items-center gap-1">
+                        {chain.contracts.map((contract, idx) => {
+                          const explorerUrl = getExplorerUrl(chain.chain, contract.address);
+                          const isCopied = copiedAddress === contract.address;
+                          const label = contract.tokenType === "Receipt Token" ? "Rcpt" : "Sec";
+                          return (
+                            <div key={idx} className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-secondary/80 text-[11px]">
+                              {explorerUrl ? (
+                                <a
+                                  href={explorerUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-muted-foreground hover:text-accent transition-colors inline-flex items-center gap-0.5"
+                                  title={contract.address}
+                                >
+                                  <span>{label}</span>
+                                  <ExternalLink className="h-2.5 w-2.5" />
+                                </a>
+                              ) : (
+                                <span className="text-muted-foreground">{label}</span>
+                              )}
+                              <button
+                                onClick={(e) => copyAddress(contract.address, e)}
+                                className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
+                                title="Copy address"
+                              >
+                                {isCopied ? (
+                                  <Check className="h-2.5 w-2.5 text-accent" />
+                                ) : (
+                                  <Copy className="h-2.5 w-2.5" />
+                                )}
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+            {filteredChains.length === 0 && (
+              <div className="px-4 py-8 text-center text-muted-foreground text-sm">
+                No chains match the current filters
+              </div>
+            )}
           </div>
         </div>
       )}
