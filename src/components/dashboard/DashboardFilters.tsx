@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { RefreshCw, X } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-
+import { RefreshCw, X, Download } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { NormalizedData } from "@/lib/tvl-types";
 
 interface DashboardFiltersProps {
   allChains: string[];
@@ -13,6 +13,7 @@ interface DashboardFiltersProps {
   isRefreshing: boolean;
   autoRefresh: boolean;
   setAutoRefresh: (v: boolean) => void;
+  data: NormalizedData;
 }
 
 
@@ -26,6 +27,7 @@ export function DashboardFilters({
   isRefreshing,
   autoRefresh,
   setAutoRefresh,
+  data,
 }: DashboardFiltersProps) {
   const [chainOpen, setChainOpen] = useState(false);
   const chainRef = useRef<HTMLDivElement>(null);
@@ -49,6 +51,35 @@ export function DashboardFilters({
   };
 
   const hasFilters = chainFilter.length > 0;
+
+  const downloadContractsCsv = (data: NormalizedData, chainFilter: string[], hideZero: boolean) => {
+    const rows: string[][] = [["Product", "Chain", "Symbol", "Token Type", "Address", "Supply", "TVL"]];
+    for (const product of data.products) {
+      for (const chain of product.chains) {
+        if (chainFilter.length > 0 && !chainFilter.includes(chain.chain)) continue;
+        if (hideZero && chain.tvl === 0 && chain.supply === 0) continue;
+        for (const contract of chain.contracts) {
+          rows.push([
+            product.product,
+            chain.chain,
+            contract.symbol,
+            contract.tokenType,
+            contract.address,
+            String(chain.supply),
+            String(chain.tvl),
+          ]);
+        }
+      }
+    }
+    const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `kaio-contract-registry-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="flex flex-wrap items-center gap-3">
@@ -137,6 +168,17 @@ export function DashboardFilters({
       >
         <RefreshCw className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
         Refresh
+      </Button>
+
+      {/* Download CSV */}
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => downloadContractsCsv(data, chainFilter, hideZeroBalances)}
+        className="gap-2"
+      >
+        <Download className="h-3.5 w-3.5" />
+        Registry CSV
       </Button>
     </div>
   );
