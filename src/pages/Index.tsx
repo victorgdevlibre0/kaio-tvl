@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
+import kaioLogo from "@/assets/kaio-logo.svg";
 import { useTvlData } from "@/hooks/use-tvl-data";
 import { GlobalSummary } from "@/components/dashboard/GlobalSummary";
 import { TvlCharts } from "@/components/dashboard/TvlCharts";
