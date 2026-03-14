@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { ProductData, TokenType } from "@/lib/tvl-types";
 import { formatFullCurrency, formatNumber } from "@/lib/format";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { getExplorerUrl, getExplorerLabel } from "@/lib/explorer-urls";
+import { ChevronDown, ChevronRight, ExternalLink } from "lucide-react";
 
 interface ProductTableProps {
   product: ProductData;
