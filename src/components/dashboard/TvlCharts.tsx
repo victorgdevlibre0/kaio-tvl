@@ -73,9 +73,9 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
         </h3>
         <ResponsiveContainer width="100%" height={240}>
           <BarChart data={chainChartData} barCategoryGap="20%" margin={{ bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
-            <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 10 }} axisLine={false} interval={0} angle={-35} textAnchor="end" height={50} />
-            <YAxis tick={{ fill: "hsl(228 12% 50%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(250 14% 20%)" />
+            <XAxis dataKey="name" tick={{ fill: "hsl(240 10% 52%)", fontSize: 10 }} axisLine={false} interval={0} angle={-35} textAnchor="end" height={50} />
+            <YAxis tick={{ fill: "hsl(240 10% 52%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
             <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
             <Bar dataKey="tvl" fill="hsl(214 58% 79%)" radius={[4, 4, 0, 0]} />
           </BarChart>
