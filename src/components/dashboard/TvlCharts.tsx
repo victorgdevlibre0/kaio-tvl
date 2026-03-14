@@ -1,4 +1,4 @@
-import { NormalizedData, TokenType } from "@/lib/tvl-types";
+import { NormalizedData } from "@/lib/tvl-types";
 import {
   BarChart,
   Bar,
