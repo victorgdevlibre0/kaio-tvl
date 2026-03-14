@@ -161,7 +161,7 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
                   </tr>
                   {isExpanded && (
                     <tr key={`${chain.chain}-expanded`} className="bg-muted/30">
-                      <td colSpan={6} className="px-10 py-4">
+                      <td colSpan={5} className="px-10 py-4">
                         <div className="grid grid-cols-3 gap-6 mb-4">
                           <div>
                             <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
