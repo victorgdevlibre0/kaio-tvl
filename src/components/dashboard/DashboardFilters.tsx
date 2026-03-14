@@ -15,12 +15,6 @@ interface DashboardFiltersProps {
   setAutoRefresh: (v: boolean) => void;
 }
 
-const TOKEN_TYPE_OPTIONS = [
-  "Security Token",
-  "Bridged Security Token",
-  "Receipt Token",
-];
-
 const RWA_CATEGORY_OPTIONS: { value: RwaCategory; label: string }[] = [
   { value: "production", label: "Production RWAs" },
   { value: "test", label: "Test RWAs" },
