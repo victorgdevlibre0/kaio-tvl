@@ -38,46 +38,46 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
     <div className="glass-card rounded-lg overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-6 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
+        className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-6 gap-4 hover:bg-secondary/20 transition-colors duration-150 cursor-pointer"
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           {(() => {
             const meta = getTokenMeta(product.product);
             return meta ? (
-              <img src={meta.logo} alt={product.product} className="h-10 w-10 brightness-0 invert" />
+              <img src={meta.logo} alt={product.product} className="h-8 w-8 sm:h-10 sm:w-10 brightness-0 invert" />
             ) : (
               <div className="h-3 w-3 rounded-full bg-accent animate-pulse-glow" />
             );
           })()}
           <div className="flex flex-col text-left">
-            <h3 className="text-xl font-semibold leading-tight">{product.product}</h3>
+            <h3 className="text-lg sm:text-xl font-semibold leading-tight">{product.product}</h3>
             {(() => {
               const meta = getTokenMeta(product.product);
               return meta ? (
-                <span className="text-sm text-muted-foreground leading-tight">{meta.name}</span>
+                <span className="text-xs sm:text-sm text-muted-foreground leading-tight">{meta.name}</span>
               ) : null;
             })()}
           </div>
         </div>
-        <div className="flex items-center gap-8">
-          <div className="text-right">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">Chains</p>
-            <p className="text-xl font-semibold text-money">{filteredChains.length}</p>
+        <div className="flex items-center gap-4 sm:gap-8 w-full sm:w-auto justify-between sm:justify-end">
+          <div className="text-left sm:text-right">
+            <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">Chains</p>
+            <p className="text-base sm:text-xl font-semibold text-money">{filteredChains.length}</p>
           </div>
-          <div className="text-right">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
-            <p className="text-xl font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
+          <div className="text-left sm:text-right">
+            <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">Supply</p>
+            <p className="text-base sm:text-xl font-semibold text-money">{formatNumber(filteredChains.reduce((s, c) => s + c.supply, 0))}</p>
           </div>
-          <div className="text-right">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
-            <p className="text-xl font-semibold text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
+          <div className="text-left sm:text-right">
+            <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">NAV</p>
+            <p className="text-base sm:text-xl font-semibold text-money">${(filteredChains.find(c => c.nav > 0)?.nav ?? 0).toFixed(2)}</p>
           </div>
-          <div className="text-right">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">TVL</p>
-            <p className="text-xl font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
+          <div className="text-left sm:text-right">
+            <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">TVL</p>
+            <p className="text-base sm:text-xl font-semibold text-accent">{formatFullCurrency(filteredTVL)}</p>
           </div>
           <ChevronDown
-            className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+            className={`h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground transition-transform duration-200 shrink-0 ${isOpen ? "rotate-180" : ""}`}
           />
         </div>
       </button>
@@ -88,13 +88,13 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border/30">
-                  <th className="text-left text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
+                  <th className="text-left text-xs font-medium uppercase tracking-wider text-muted-foreground px-4 sm:px-5 py-3">
                     Chain
                   </th>
-                  <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
+                  <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-4 sm:px-5 py-3">
                     Supply
                   </th>
-                  <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
+                  <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-4 sm:px-5 py-3">
                     TVL On Chain
                   </th>
                 </tr>
@@ -107,24 +107,24 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
                       key={chain.chain}
                       className="border-b border-border/20 hover:bg-secondary/30 transition-colors duration-150"
                     >
-                      <td className="px-5 py-3 font-medium">
-                        <div className="flex items-center gap-4">
+                      <td className="px-4 sm:px-5 py-3 font-medium">
+                        <div className="flex items-center gap-3 sm:gap-4">
                           {logo ? (
                             <img
                               src={logo}
                               alt={chain.chain}
-                              className="h-9 w-9 rounded-full shrink-0"
+                              className="h-7 w-7 sm:h-9 sm:w-9 rounded-full shrink-0"
                               onError={(e) => {
                                 (e.target as HTMLImageElement).style.display = "none";
                               }}
                             />
                           ) : (
-                            <div className="h-9 w-9 rounded-full bg-secondary flex items-center justify-center text-sm text-muted-foreground font-bold shrink-0">
+                            <div className="h-7 w-7 sm:h-9 sm:w-9 rounded-full bg-secondary flex items-center justify-center text-xs sm:text-sm text-muted-foreground font-bold shrink-0">
                               {chain.chain.charAt(0)}
                             </div>
                           )}
-                          <div className="flex flex-col gap-2">
-                            <span className="text-base leading-tight">{chain.chain}</span>
+                          <div className="flex flex-col gap-1 sm:gap-2 min-w-0">
+                            <span className="text-sm sm:text-base leading-tight truncate">{chain.chain}</span>
                             {chain.contracts && chain.contracts.length > 0 && (
                               <div className="flex flex-wrap items-center gap-1">
                                 {chain.contracts.map((contract, idx) => {
@@ -167,8 +167,8 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
                           </div>
                         </div>
                       </td>
-                      <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>
-                      <td className="px-5 py-3 text-right text-money font-semibold">
+                      <td className="px-4 sm:px-5 py-3 text-right text-sm sm:text-base text-money">{formatNumber(chain.supply)}</td>
+                      <td className="px-4 sm:px-5 py-3 text-right text-sm sm:text-base text-money font-semibold">
                         {formatFullCurrency(chain.tvl)}
                       </td>
                     </tr>
@@ -176,7 +176,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
                 })}
                 {filteredChains.length === 0 && (
                   <tr>
-                    <td colSpan={3} className="px-5 py-8 text-center text-muted-foreground text-sm">
+                    <td colSpan={3} className="px-4 sm:px-5 py-8 text-center text-muted-foreground text-sm">
                       No chains match the current filters
                     </td>
                   </tr>

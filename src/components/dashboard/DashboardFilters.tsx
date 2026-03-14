@@ -82,7 +82,7 @@ export function DashboardFilters({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
       {/* Chain Filter */}
       <div className="relative" ref={chainRef}>
         <button
@@ -117,14 +117,15 @@ export function DashboardFilters({
       </div>
 
       {/* Hide zero balances */}
-      <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+      <label className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground cursor-pointer select-none">
         <input
           type="checkbox"
           checked={hideZeroBalances}
           onChange={(e) => setHideZeroBalances(e.target.checked)}
           className="rounded border-border"
         />
-        Hide zero balances
+        <span className="hidden sm:inline">Hide zero balances</span>
+        <span className="sm:hidden">Hide zeros</span>
       </label>
 
       {/* Clear filters */}
@@ -139,10 +140,10 @@ export function DashboardFilters({
         </button>
       )}
 
-      <div className="flex-1" />
+      <div className="flex-1 min-w-0" />
 
       {/* Auto-refresh toggle */}
-      <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
+      <label className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
         <div
           className={`relative w-8 h-4 rounded-full transition-colors ${
             autoRefresh ? "bg-primary" : "bg-secondary"
@@ -164,10 +165,10 @@ export function DashboardFilters({
         size="sm"
         onClick={onRefresh}
         disabled={isRefreshing}
-        className="gap-2"
+        className="gap-1 sm:gap-2 px-2 sm:px-3"
       >
         <RefreshCw className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
-        Refresh
+        <span className="hidden sm:inline">Refresh</span>
       </Button>
 
       {/* Download CSV */}
@@ -175,10 +176,10 @@ export function DashboardFilters({
         variant="outline"
         size="sm"
         onClick={() => downloadContractsCsv(data, chainFilter, hideZeroBalances)}
-        className="gap-2"
+        className="gap-1 sm:gap-2 px-2 sm:px-3"
       >
         <Download className="h-3.5 w-3.5" />
-        Registry CSV
+        <span className="hidden sm:inline">Registry CSV</span>
       </Button>
     </div>
   );

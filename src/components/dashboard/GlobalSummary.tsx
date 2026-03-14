@@ -15,13 +15,13 @@ const kpiCards = [
 
 export function GlobalSummary({ data }: GlobalSummaryProps) {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       {kpiCards.map((kpi) => {
         const Icon = kpi.icon;
         return (
           <div
             key={kpi.label}
-            className="glass-card rounded-lg p-5 transition-all duration-200 hover:border-primary/30"
+            className="glass-card rounded-lg p-3 sm:p-5 transition-all duration-200 hover:border-primary/30"
           >
             <div className="flex items-center gap-2 mb-3">
               <Icon className="h-4 w-4 text-muted-foreground" />
@@ -29,7 +29,7 @@ export function GlobalSummary({ data }: GlobalSummaryProps) {
                 {kpi.label}
               </span>
             </div>
-            <p className={`text-2xl lg:text-3xl font-semibold ${kpi.accent ? "text-accent" : "text-money"}`}>
+            <p className={`text-xl sm:text-2xl lg:text-3xl font-semibold ${kpi.accent ? "text-accent" : "text-money"}`}>
               {kpi.getValue(data)}
             </p>
           </div>

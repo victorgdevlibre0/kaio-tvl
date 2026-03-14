@@ -52,11 +52,11 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div className="glass-card rounded-lg p-5">
+      <div className="glass-card rounded-lg p-3 sm:p-5">
         <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           TVL by RWA
         </h3>
-        <ResponsiveContainer width="100%" height={280}>
+        <ResponsiveContainer width="100%" height={240}>
           <BarChart data={productChartData} barCategoryGap="20%">
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
             <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 12 }} axisLine={false} />
@@ -67,11 +67,11 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
         </ResponsiveContainer>
       </div>
 
-      <div className="glass-card rounded-lg p-5">
+      <div className="glass-card rounded-lg p-3 sm:p-5">
         <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           TVL by Chain
         </h3>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={240}>
           <BarChart data={chainChartData} barCategoryGap="20%" margin={{ bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(228 18% 20%)" />
             <XAxis dataKey="name" tick={{ fill: "hsl(228 12% 50%)", fontSize: 10 }} axisLine={false} interval={0} angle={-35} textAnchor="end" height={50} />
