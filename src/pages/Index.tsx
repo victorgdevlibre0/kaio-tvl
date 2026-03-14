@@ -118,7 +118,7 @@ const Index = () => {
               product={product}
               chainFilter={chainFilter}
               hideZeroBalances={hideZeroBalances}
-              defaultOpen={idx === 0}
+              defaultOpen={false}
             />
           ))}
         </div>
