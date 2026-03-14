@@ -28,6 +28,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
 
   const filteredChains = product.chains.filter((c) => {
     if (chainFilter.length > 0 && !chainFilter.includes(c.chain)) return false;
+    if (hideZeroBalances && c.tvl === 0 && c.supply === 0) return false;
     return true;
   });
 

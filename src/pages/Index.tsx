@@ -118,6 +118,7 @@ const Index = () => {
               key={product.product}
               product={product}
               chainFilter={chainFilter}
+              hideZeroBalances={hideZeroBalances}
               defaultOpen={idx === 0}
             />
           ))}
