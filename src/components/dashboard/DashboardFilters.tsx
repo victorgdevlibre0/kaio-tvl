@@ -50,27 +50,10 @@ export function DashboardFilters({
     );
   };
 
-  const hasFilters = chainFilter.length > 0 || rwaCategory !== "production";
+  const hasFilters = chainFilter.length > 0;
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      {/* RWA Category Filter */}
-      <div className="flex items-center gap-1 rounded-lg bg-secondary/50 p-0.5">
-        {RWA_CATEGORY_OPTIONS.map((opt) => (
-          <button
-            key={opt.value}
-            onClick={() => setRwaCategory(opt.value)}
-            className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
-              rwaCategory === opt.value
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-
       {/* Chain Filter */}
       <div className="relative" ref={chainRef}>
         <button
