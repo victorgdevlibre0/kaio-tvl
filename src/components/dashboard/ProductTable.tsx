@@ -92,9 +92,6 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
               <th className="text-right text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
                 TVL On Chain
               </th>
-              <th className="text-left text-xs font-medium uppercase tracking-wider text-muted-foreground px-5 py-3">
-                Token Type
-              </th>
             </tr>
           </thead>
           <tbody>
