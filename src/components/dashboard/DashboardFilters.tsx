@@ -29,6 +29,8 @@ export function DashboardFilters({
   setChainFilter,
   rwaCategory,
   setRwaCategory,
+  hideZeroBalances,
+  setHideZeroBalances,
   onRefresh,
   isRefreshing,
   autoRefresh,
