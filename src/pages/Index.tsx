@@ -102,6 +102,8 @@ const Index = () => {
           setChainFilter={setChainFilter}
           rwaCategory={rwaCategory}
           setRwaCategory={setRwaCategory}
+          hideZeroBalances={hideZeroBalances}
+          setHideZeroBalances={setHideZeroBalances}
           onRefresh={handleRefresh}
           isRefreshing={isFetching}
           autoRefresh={autoRefresh}
