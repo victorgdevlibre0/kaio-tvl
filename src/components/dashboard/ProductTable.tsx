@@ -236,7 +236,7 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
           </div>
 
           {/* Mobile card list */}
-          <div className="sm:hidden divide-y divide-border/20">
+          <div className="md:hidden divide-y divide-border/20">
             {filteredChains.map((chain) => {
               const logo = getChainLogo(chain.chain);
               return (
