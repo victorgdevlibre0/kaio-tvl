@@ -67,7 +67,7 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
         </ResponsiveContainer>
       </div>
 
-      <div className="glass-card rounded-lg p-5">
+      <div className="glass-card rounded-lg p-3 sm:p-5">
         <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           TVL by Chain
         </h3>
