@@ -131,6 +131,7 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                         {chain.chain}
                       </div>
                     </td>
+                    <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>
                     <td className="px-5 py-3 text-right text-money font-semibold">
                       {formatFullCurrency(chain.tvl)}
                     </td>
