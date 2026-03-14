@@ -29,7 +29,7 @@ export function GlobalSummary({ data }: GlobalSummaryProps) {
                 {kpi.label}
               </span>
             </div>
-            <p className={`text-2xl lg:text-3xl font-semibold text-money ${kpi.accent ? "text-accent" : ""}`}>
+            <p className={`text-2xl lg:text-3xl font-semibold ${kpi.accent ? "text-accent" : "text-money"}`}>
               {kpi.getValue(data)}
             </p>
           </div>
