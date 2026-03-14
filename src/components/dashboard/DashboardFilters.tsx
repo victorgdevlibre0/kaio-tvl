@@ -101,7 +101,6 @@ export function DashboardFilters({
         <button
           onClick={() => {
             setChainFilter([]);
-            setRwaCategory("production");
           }}
           className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
