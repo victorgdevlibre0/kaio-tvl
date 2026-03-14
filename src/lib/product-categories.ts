@@ -1,6 +1,9 @@
 // Products to always exclude from the dashboard
 export const EXCLUDED_PRODUCTS = new Set(["APCx", "LCFB", "BHMB", "BHMC"]);
 
+// Token symbols to exclude from contract entries and data aggregation
+export const EXCLUDED_SYMBOLS = new Set(["LCFB", "BHMB", "BHMC"]);
+
 // Test products that should be hidden by default (only shown with "Test RWAs" filter)
 export const TEST_PRODUCTS = new Set(["Singapore-BMM-test", "Cayman-BMM-test"]);
 
