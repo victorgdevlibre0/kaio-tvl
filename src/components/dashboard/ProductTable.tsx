@@ -96,60 +96,62 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                   className="border-b border-border/20 hover:bg-secondary/30 transition-colors duration-150"
                 >
                   <td className="px-5 py-3 font-medium">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-start gap-2.5">
                       {logo ? (
                         <img
                           src={logo}
                           alt={chain.chain}
-                          className="h-5 w-5 rounded-full"
+                          className="h-5 w-5 rounded-full mt-0.5 shrink-0"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.display = "none";
                           }}
                         />
                       ) : (
-                        <div className="h-5 w-5 rounded-full bg-secondary flex items-center justify-center text-[10px] text-muted-foreground font-bold">
+                        <div className="h-5 w-5 rounded-full bg-secondary flex items-center justify-center text-[10px] text-muted-foreground font-bold mt-0.5 shrink-0">
                           {chain.chain.charAt(0)}
                         </div>
                       )}
-                      <span>{chain.chain}</span>
-                      {chain.contracts && chain.contracts.length > 0 && (
-                        <div className="flex items-center gap-1 ml-1">
-                          {chain.contracts.map((contract, idx) => {
-                            const explorerUrl = getExplorerUrl(chain.chain, contract.address);
-                            const isCopied = copiedAddress === contract.address;
-                            const label = contract.tokenType === "Receipt Token" ? "Receipt" : "Security";
-                            return (
-                              <div key={idx} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary/80 text-xs">
-                                {explorerUrl ? (
-                                  <a
-                                    href={explorerUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-muted-foreground hover:text-accent transition-colors inline-flex items-center gap-1"
-                                    title={contract.address}
-                                  >
-                                    <span>{label}</span>
-                                    <ExternalLink className="h-3 w-3" />
-                                  </a>
-                                ) : (
-                                  <span className="text-muted-foreground">{label}</span>
-                                )}
-                                <button
-                                  onClick={(e) => copyAddress(contract.address, e)}
-                                  className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
-                                  title="Copy address"
-                                >
-                                  {isCopied ? (
-                                    <Check className="h-3 w-3 text-accent" />
+                      <div className="flex flex-col gap-1">
+                        <span className="leading-tight">{chain.chain}</span>
+                        {chain.contracts && chain.contracts.length > 0 && (
+                          <div className="flex flex-wrap items-center gap-1">
+                            {chain.contracts.map((contract, idx) => {
+                              const explorerUrl = getExplorerUrl(chain.chain, contract.address);
+                              const isCopied = copiedAddress === contract.address;
+                              const label = contract.tokenType === "Receipt Token" ? "Receipt" : "Security";
+                              return (
+                                <div key={idx} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary/80 text-xs">
+                                  {explorerUrl ? (
+                                    <a
+                                      href={explorerUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-muted-foreground hover:text-accent transition-colors inline-flex items-center gap-1"
+                                      title={contract.address}
+                                    >
+                                      <span>{label}</span>
+                                      <ExternalLink className="h-3 w-3" />
+                                    </a>
                                   ) : (
-                                    <Copy className="h-3 w-3" />
+                                    <span className="text-muted-foreground">{label}</span>
                                   )}
-                                </button>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
+                                  <button
+                                    onClick={(e) => copyAddress(contract.address, e)}
+                                    className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
+                                    title="Copy address"
+                                  >
+                                    {isCopied ? (
+                                      <Check className="h-3 w-3 text-accent" />
+                                    ) : (
+                                      <Copy className="h-3 w-3" />
+                                    )}
+                                  </button>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </td>
                   <td className="px-5 py-3 text-right text-money">{formatNumber(chain.supply)}</td>

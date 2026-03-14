@@ -1,18 +1,31 @@
-// Chain logo URLs using public token/chain icon sources
+import ethereumLogo from "@/assets/chains/ethereum.png";
+import polygonLogo from "@/assets/chains/polygon.png";
+import avalancheLogo from "@/assets/chains/avalanche.png";
+import solanaLogo from "@/assets/chains/solana.png";
+import suiLogo from "@/assets/chains/sui.png";
+import nearLogo from "@/assets/chains/near.png";
+import aptosLogo from "@/assets/chains/aptos.png";
+import hederaLogo from "@/assets/chains/hedera.png";
+import seiLogo from "@/assets/chains/sei.png";
+import injectiveLogo from "@/assets/chains/injective.png";
+import xdcLogo from "@/assets/chains/xdc.png";
+import immutableLogo from "@/assets/chains/immutable.png";
+import mantraLogo from "@/assets/chains/mantra.png";
+
 const CHAIN_LOGOS: Record<string, string> = {
-  Ethereum: "https://cryptologos.cc/logos/ethereum-eth-logo.svg",
-  Polygon: "https://cryptologos.cc/logos/polygon-matic-logo.svg",
-  Avalanche: "https://cryptologos.cc/logos/avalanche-avax-logo.svg",
-  Solana: "https://cryptologos.cc/logos/solana-sol-logo.svg",
-  Sui: "https://cryptologos.cc/logos/sui-sui-logo.svg",
-  Near: "https://cryptologos.cc/logos/near-protocol-near-logo.svg",
-  Aptos: "https://cryptologos.cc/logos/aptos-apt-logo.svg",
-  Hedera: "https://cryptologos.cc/logos/hedera-hbar-logo.svg",
-  Sei: "https://cryptologos.cc/logos/sei-sei-logo.svg",
-  Injective: "https://cryptologos.cc/logos/injective-inj-logo.svg",
-  XDC: "https://cryptologos.cc/logos/xdc-network-xdc-logo.svg",
-  Immutable: "https://cryptologos.cc/logos/immutable-x-imx-logo.svg",
-  Mantra: "https://cryptologos.cc/logos/mantra-om-logo.svg",
+  Ethereum: ethereumLogo,
+  Polygon: polygonLogo,
+  Avalanche: avalancheLogo,
+  Solana: solanaLogo,
+  Sui: suiLogo,
+  Near: nearLogo,
+  Aptos: aptosLogo,
+  Hedera: hederaLogo,
+  Sei: seiLogo,
+  Injective: injectiveLogo,
+  XDC: xdcLogo,
+  Immutable: immutableLogo,
+  Mantra: mantraLogo,
 };
 
 export function getChainLogo(chain: string): string | null {
