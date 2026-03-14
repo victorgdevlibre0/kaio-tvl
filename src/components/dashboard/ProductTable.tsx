@@ -35,13 +35,6 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
 
   const filteredChains = product.chains.filter((c) => {
     if (chainFilter.length > 0 && !chainFilter.includes(c.chain)) return false;
-    if (tokenTypeFilter.length > 0) {
-      const combined = c.tokenTypes.join(" + ");
-      const matches = tokenTypeFilter.some(
-        (f) => c.tokenTypes.includes(f as TokenType) || f === combined
-      );
-      if (!matches) return false;
-    }
     return true;
   });
 
