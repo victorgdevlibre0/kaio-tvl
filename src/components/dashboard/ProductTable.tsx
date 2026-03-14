@@ -77,7 +77,7 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
           </div>
           <div className="text-right">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground">NAV</p>
-            <p className="text-sm font-medium text-money">{formatFullCurrency(filteredChains.reduce((s, c) => s + c.nav, 0))}</p>
+            <p className="text-sm font-medium text-money">{formatFullCurrency(filteredChains.find(c => c.nav > 0)?.nav ?? 0)}</p>
           </div>
           <div className="text-right">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground">TVL</p>
