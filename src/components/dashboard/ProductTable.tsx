@@ -140,7 +140,7 @@ export function ProductTable({ product, chainFilter }: ProductTableProps) {
                     <tr key={`${chain.chain}-expanded`} className="bg-muted/30">
                       <td colSpan={4} className="px-10 py-4">
                          {chain.contracts && chain.contracts.length > 0 && (
-                          <div className="border-t border-border/30 pt-3">
+                          <div>
                             <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
                               Contract Addresses
                             </p>
