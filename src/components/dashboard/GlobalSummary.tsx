@@ -8,7 +8,7 @@ interface GlobalSummaryProps {
 
 const kpiCards = [
   { label: "Total TVL", icon: DollarSign, getValue: (d: NormalizedData) => formatCurrency(d.totalTVL), accent: true },
-  { label: "Products", icon: Layers, getValue: (d: NormalizedData) => String(d.allProducts.length), accent: false },
+  { label: "RWAs", icon: Layers, getValue: (d: NormalizedData) => String(d.allProducts.length), accent: false },
   { label: "Chains", icon: Link, getValue: (d: NormalizedData) => String(d.allChains.length), accent: false },
   { label: "Avg TVL / Product", icon: BarChart3, getValue: (d: NormalizedData) => formatCurrency(d.totalTVL / (d.allProducts.length || 1)), accent: false },
 ];
