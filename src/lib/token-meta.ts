@@ -9,10 +9,10 @@ interface TokenMeta {
 }
 
 const TOKEN_META: Record<string, TokenMeta> = {
-  VOLTx: { logo: voltxLogo, name: "Volt Token" },
-  SCOPEx: { logo: scopexLogo, name: "Scope Token" },
-  CASHx: { logo: cashxLogo, name: "Cash Token" },
-  MACROx: { logo: macroxLogo, name: "Macro Token" },
+  CASHx: { logo: cashxLogo, name: "Blackrock ICS US Dollar Liquidity Fund in SG (by KAIO)" },
+  VOLTx: { logo: voltxLogo, name: "Laser Digital Carry Fund in SG (by KAIO)" },
+  SCOPEx: { logo: scopexLogo, name: "Hamilton Lane Senior Credit Opportunities Fund in SG (by KAIO)" },
+  MACROx: { logo: macroxLogo, name: "Brevan Howard Master Fund in SG (by KAIO)" },
 };
 
 export function getTokenMeta(symbol: string): TokenMeta | null {

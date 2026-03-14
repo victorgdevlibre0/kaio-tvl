@@ -55,18 +55,20 @@ export function ProductTable({ product, chainFilter, tokenTypeFilter }: ProductT
           {(() => {
             const meta = getTokenMeta(product.product);
             return meta ? (
-              <img src={meta.logo} alt={product.product} className="h-7 w-7 brightness-0 invert" />
+              <img src={meta.logo} alt={product.product} className="h-8 w-8 brightness-0 invert" />
             ) : (
               <div className="h-2 w-2 rounded-full bg-accent animate-pulse-glow" />
             );
           })()}
-          <h3 className="text-lg font-semibold">{product.product}</h3>
-          {(() => {
-            const meta = getTokenMeta(product.product);
-            return meta ? (
-              <span className="text-sm text-muted-foreground">{meta.name}</span>
-            ) : null;
-          })()}
+          <div className="flex flex-col">
+            <h3 className="text-lg font-semibold leading-tight">{product.product}</h3>
+            {(() => {
+              const meta = getTokenMeta(product.product);
+              return meta ? (
+                <span className="text-xs text-muted-foreground leading-tight">{meta.name}</span>
+              ) : null;
+            })()}
+          </div>
         </div>
         <span className="text-money text-accent font-semibold">
           {formatFullCurrency(filteredTVL)}
