@@ -4,6 +4,7 @@ import { DollarSign, Layers, Link, BarChart3 } from "lucide-react";
 
 interface GlobalSummaryProps {
   data: NormalizedData;
+  errors?: (string | null)[];
 }
 
 const kpiCards = [
@@ -13,7 +14,9 @@ const kpiCards = [
   { label: "Avg TVL / RWA", icon: BarChart3, getValue: (d: NormalizedData) => formatCurrency(d.totalTVL / (d.allProducts.length || 1)), accent: false },
 ];
 
-export function GlobalSummary({ data }: GlobalSummaryProps) {
+export function GlobalSummary({ data, errors = [] }: GlobalSummaryProps) {
+  const hasErrors = (errors.filter(Boolean) as string[]).length > 0;
+
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       {kpiCards.map((kpi) => {
@@ -29,8 +32,8 @@ export function GlobalSummary({ data }: GlobalSummaryProps) {
                 {kpi.label}
               </span>
             </div>
-            <p className={`text-xl sm:text-2xl lg:text-3xl font-semibold ${kpi.accent ? "text-accent" : "text-money"}`}>
-              {kpi.getValue(data)}
+            <p className={`text-xl sm:text-2xl lg:text-3xl font-semibold ${hasErrors ? "text-muted-foreground/40" : kpi.accent ? "text-accent" : "text-money"}`}>
+              {hasErrors ? "—" : kpi.getValue(data)}
             </p>
           </div>
         );

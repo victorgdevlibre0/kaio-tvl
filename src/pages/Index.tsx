@@ -94,15 +94,25 @@ const Index = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 bg-surface/50 sm:rounded-2xl sm:my-2 sm:border sm:border-border/30">
         {errors && errors.length > 0 && (
-          <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-destructive/10 border border-destructive/20 text-sm text-destructive">
-            <AlertTriangle className="h-4 w-4 shrink-0" />
-            <span>
-              Partial data: failed to load {errors.join(", ")} endpoint{errors.length > 1 ? "s" : ""}
-            </span>
+          <div className="flex items-center justify-between gap-2 px-4 py-3 rounded-md bg-destructive/10 border border-destructive/20 text-sm text-destructive">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4 shrink-0" />
+              <div>
+                <span className="font-medium">Some data is unavailable</span>
+                <span className="text-destructive/70"> — The {errors.join(", ")} endpoint{errors.length > 1 ? "s are" : " is"} currently down. Data has been hidden to avoid displaying incomplete information.</span>
+              </div>
+            </div>
+            <button
+              onClick={handleRefresh}
+              disabled={isFetching}
+              className="shrink-0 px-3 py-1 rounded-md bg-destructive/20 text-destructive text-xs font-medium hover:bg-destructive/30 transition-colors disabled:opacity-50"
+            >
+              {isFetching ? "Retrying…" : "Retry"}
+            </button>
           </div>
         )}
 
-        <GlobalSummary data={filteredData} />
+        <GlobalSummary data={filteredData} errors={errors} />
 
         <DashboardFilters
           allChains={filteredData.allChains}
@@ -117,18 +127,25 @@ const Index = () => {
           data={filteredData}
         />
 
-        <TvlCharts data={filteredData} chainFilter={chainFilter} />
+        <TvlCharts data={filteredData} chainFilter={chainFilter} errors={errors} />
 
         <div className="space-y-6">
-          {filteredData.products.map((product, idx) => (
-            <ProductTable
-              key={product.product}
-              product={product}
-              chainFilter={chainFilter}
-              hideZeroBalances={hideZeroBalances}
-              defaultOpen={false}
-            />
-          ))}
+          {errors && errors.length > 0 ? (
+            <div className="glass-card rounded-lg p-8 text-center">
+              <AlertTriangle className="h-6 w-6 text-muted-foreground/40 mx-auto mb-3" />
+              <p className="text-sm text-muted-foreground/60">Product data hidden due to endpoint errors</p>
+            </div>
+          ) : (
+            filteredData.products.map((product) => (
+              <ProductTable
+                key={product.product}
+                product={product}
+                chainFilter={chainFilter}
+                hideZeroBalances={hideZeroBalances}
+                defaultOpen={false}
+              />
+            ))
+          )}
         </div>
       </main>
     </div>

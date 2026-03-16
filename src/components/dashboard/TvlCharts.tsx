@@ -9,17 +9,30 @@ import {
   CartesianGrid,
 } from "recharts";
 import { formatCurrency } from "@/lib/format";
+import { AlertTriangle } from "lucide-react";
 
 interface TvlChartsProps {
   data: NormalizedData;
   chainFilter: string[];
+  errors?: (string | null)[];
 }
 
 function matchesChainFilter(chain: string, chainFilter: string[]): boolean {
   return chainFilter.length === 0 || chainFilter.includes(chain);
 }
 
-export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
+function EmptyChartState() {
+  return (
+    <div className="flex flex-col items-center justify-center h-[240px] text-muted-foreground/50">
+      <AlertTriangle className="h-8 w-8 mb-2" />
+      <p className="text-xs">Data unavailable</p>
+    </div>
+  );
+}
+
+export function TvlCharts({ data, chainFilter, errors = [] }: TvlChartsProps) {
+  const hasErrors = (errors.filter(Boolean) as string[]).length > 0;
+
   // TVL by Product
   const productChartData = data.products.map((p) => {
     const filteredTVL = p.chains
@@ -61,19 +74,23 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
           <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
             TVL by RWA
           </h3>
-          <span className="text-sm font-semibold text-money">
-            {formatCurrency(productChartData.reduce((s, d) => s + d.tvl, 0))}
+          <span className={`text-sm font-semibold ${hasErrors ? "text-muted-foreground/40" : "text-money"}`}>
+            {hasErrors ? "—" : formatCurrency(productChartData.reduce((s, d) => s + d.tvl, 0))}
           </span>
         </div>
-        <ResponsiveContainer width="100%" height={240}>
-          <BarChart data={productChartData} barCategoryGap="20%">
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(250 14% 20%)" />
-            <XAxis dataKey="name" tick={{ fill: "hsl(240 10% 52%)", fontSize: 12 }} axisLine={false} />
-            <YAxis tick={{ fill: "hsl(240 10% 52%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
-            <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
-            <Bar dataKey="tvl" fill="hsl(214 47% 52%)" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        {hasErrors ? (
+          <EmptyChartState />
+        ) : (
+          <ResponsiveContainer width="100%" height={240}>
+            <BarChart data={productChartData} barCategoryGap="20%">
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(250 14% 20%)" />
+              <XAxis dataKey="name" tick={{ fill: "hsl(240 10% 52%)", fontSize: 12 }} axisLine={false} />
+              <YAxis tick={{ fill: "hsl(240 10% 52%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
+              <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
+              <Bar dataKey="tvl" fill="hsl(214 47% 52%)" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
       </div>
 
       <div className="glass-card rounded-lg p-3 sm:p-5">
@@ -81,19 +98,23 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
           <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
             TVL by Chain
           </h3>
-          <span className="text-sm font-semibold text-money">
-            {formatCurrency(chainChartData.reduce((s, d) => s + d.tvl, 0))}
+          <span className={`text-sm font-semibold ${hasErrors ? "text-muted-foreground/40" : "text-money"}`}>
+            {hasErrors ? "—" : formatCurrency(chainChartData.reduce((s, d) => s + d.tvl, 0))}
           </span>
         </div>
-        <ResponsiveContainer width="100%" height={240}>
-          <BarChart data={chainChartData} barCategoryGap="20%" margin={{ bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(250 14% 20%)" />
-            <XAxis dataKey="name" tick={{ fill: "hsl(240 10% 52%)", fontSize: 10 }} axisLine={false} interval={0} angle={-35} textAnchor="end" height={50} />
-            <YAxis tick={{ fill: "hsl(240 10% 52%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
-            <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
-            <Bar dataKey="tvl" fill="hsl(214 58% 79%)" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        {hasErrors ? (
+          <EmptyChartState />
+        ) : (
+          <ResponsiveContainer width="100%" height={240}>
+            <BarChart data={chainChartData} barCategoryGap="20%" margin={{ bottom: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(250 14% 20%)" />
+              <XAxis dataKey="name" tick={{ fill: "hsl(240 10% 52%)", fontSize: 10 }} axisLine={false} interval={0} angle={-35} textAnchor="end" height={50} />
+              <YAxis tick={{ fill: "hsl(240 10% 52%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => formatCurrency(v)} />
+              <Tooltip {...tooltipStyle} formatter={(value: number) => [formatCurrency(value), "TVL"]} />
+              <Bar dataKey="tvl" fill="hsl(214 58% 79%)" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
       </div>
     </div>
   );
