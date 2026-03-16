@@ -73,9 +73,14 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
       </div>
 
       <div className="glass-card rounded-lg p-3 sm:p-5">
-        <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-          TVL by Chain
-        </h3>
+        <div className="flex items-baseline justify-between mb-4">
+          <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+            TVL by Chain
+          </h3>
+          <span className="text-sm font-semibold text-money">
+            {formatCurrency(chainChartData.reduce((s, d) => s + d.tvl, 0))}
+          </span>
+        </div>
         <ResponsiveContainer width="100%" height={240}>
           <BarChart data={chainChartData} barCategoryGap="20%" margin={{ bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(250 14% 20%)" />
