@@ -42,12 +42,16 @@ export function TvlCharts({ data, chainFilter }: TvlChartsProps) {
 
   const tooltipStyle = {
     contentStyle: {
-      backgroundColor: "hsl(250 18% 14%)",
-      border: "1px solid hsl(250 14% 20%)",
+      backgroundColor: "hsl(250 18% 14% / 0.85)",
+      backdropFilter: "blur(8px)",
+      border: "1px solid hsl(59 100% 90% / 0.25)",
       borderRadius: "12px",
-      color: "hsl(0 0% 96%)",
+      color: "hsl(59 100% 90%)",
       fontSize: "12px",
+      boxShadow: "0 4px 20px hsl(59 100% 90% / 0.08)",
+      transition: "all 0.2s ease-in-out",
     },
+    cursor: { fill: "hsl(59 100% 90% / 0.06)" },
   };
 
   return (
