@@ -153,10 +153,11 @@ export const LegalDrawer = ({ children }: { children: React.ReactNode }) => {
 
             <div className="mt-8 pt-6 border-t border-border/40 text-center">
               <p className="text-sm text-muted-foreground">
-                For more information about KAIO, visit{" "}
+                Go to{" "}
                 <a href="https://www.kaio.xyz" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-primary hover:text-primary/80 transition-colors">
-                  www.kaio.xyz
+                  KAIO web page
                 </a>
+                {" "}for more information
               </p>
             </div>
           </div>
