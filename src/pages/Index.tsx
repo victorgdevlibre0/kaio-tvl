@@ -99,8 +99,8 @@ const Index = () => {
             <div className="flex items-center gap-2">
               <AlertTriangle className="h-4 w-4 shrink-0" />
               <div>
-                <span className="font-medium">Some data is unavailable</span>
-                <span className="text-destructive/70"> — The {errors.join(", ")} endpoint{errors.length > 1 ? "s are" : " is"} currently down. Data has been hidden to avoid displaying incomplete information.</span>
+                <span className="font-medium">Some data is temporarily unavailable</span>
+                <span className="text-destructive/70"> — We're working on restoring the {errors.join(", ")} {errors.length > 1 ? "services" : "service"} and will have everything back shortly.</span>
               </div>
             </div>
             <button
