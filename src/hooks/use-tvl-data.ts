@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { NormalizedData, ProductData, ChainData, TokenType, ContractInfo } from "@/lib/tvl-types";
 import { EXCLUDED_SYMBOLS } from "@/lib/product-categories";
+import { MOCK_MAIN, MOCK_BRIDGED, MOCK_RECEIPTS } from "@/lib/mock-data";
+
+const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA === "true";
 
 const BASE = "https://api.l1-prod.librecapital.com/api/v1/tvl";
 
