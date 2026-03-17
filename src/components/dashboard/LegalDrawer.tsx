@@ -17,11 +17,12 @@ export const LegalDrawer = ({ children }: { children: React.ReactNode }) => {
       <SheetContent side="right" className="w-full sm:max-w-2xl p-0 flex flex-col">
         <SheetHeader className="px-6 pt-6 pb-4 border-b border-border/40 shrink-0">
           <SheetTitle className="text-lg font-semibold tracking-tight text-left">
-            Important Notice — Please Read Carefully Before Proceeding
+            KAIO Explorer Disclaimer
           </SheetTitle>
         </SheetHeader>
         <ScrollArea className="flex-1">
           <div className="px-6 py-6 space-y-6 text-sm text-muted-foreground leading-relaxed">
+            <h2 className="text-base font-semibold text-foreground tracking-tight">Important Notice — Please Read Carefully Before Proceeding</h2>
             <p>
               KAIO Explorer is a technology interface operated by the KAIO Foundation in its capacity as a tokenization service provider. This Platform displays information about investment fund products that have been tokenized using KAIO's proprietary distributed ledger technology infrastructure. The display of such information is provided solely for the purposes of: (i) demonstrating KAIO's tokenization capabilities; (ii) providing transparency to existing holders of tokenized interests regarding their on-chain positions; and (iii) providing general public information about the tokenization of real-world assets.
             </p>
