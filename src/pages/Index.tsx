@@ -5,6 +5,7 @@ import { GlobalSummary } from "@/components/dashboard/GlobalSummary";
 import { TvlCharts } from "@/components/dashboard/TvlCharts";
 import { ProductTable } from "@/components/dashboard/ProductTable";
 import { DashboardFilters } from "@/components/dashboard/DashboardFilters";
+import { LegalDrawer } from "@/components/dashboard/LegalDrawer";
 import { isProductVisible, RwaCategory } from "@/lib/product-categories";
 import { Loader2, AlertTriangle } from "lucide-react";
 import { NormalizedData } from "@/lib/tvl-types";
