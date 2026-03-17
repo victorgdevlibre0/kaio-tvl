@@ -5,6 +5,7 @@ import { GlobalSummary } from "@/components/dashboard/GlobalSummary";
 import { TvlCharts } from "@/components/dashboard/TvlCharts";
 import { ProductTable } from "@/components/dashboard/ProductTable";
 import { DashboardFilters } from "@/components/dashboard/DashboardFilters";
+import { LegalDrawer } from "@/components/dashboard/LegalDrawer";
 import { isProductVisible, RwaCategory } from "@/lib/product-categories";
 import { Loader2, AlertTriangle } from "lucide-react";
 import { NormalizedData } from "@/lib/tvl-types";
@@ -153,9 +154,11 @@ const Index = () => {
         <p className="text-[11px] leading-relaxed text-muted-foreground/50 text-center">
           KAIO Explorer is a technology interface operated by the KAIO Foundation. This Platform does not constitute an offer, solicitation, or recommendation to invest in any fund or financial product.
           KAIO operates solely as a tokenization service provider.{" "}
-          <a href="/legal" className="underline underline-offset-2 hover:text-muted-foreground transition-colors">
-            Read full disclaimer
-          </a>
+          <LegalDrawer>
+            <button className="underline underline-offset-2 hover:text-muted-foreground transition-colors">
+              Read full disclaimer
+            </button>
+          </LegalDrawer>
         </p>
       </footer>
     </div>
