@@ -110,7 +110,19 @@ export function ProductTable({ product, chainFilter, hideZeroBalances = false, d
               );
             })()}
             <div className="flex flex-col text-left">
-              <h3 className="text-xl font-semibold leading-tight">{product.product}</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-xl font-semibold leading-tight">{product.product}</h3>
+                <a
+                  href={`https://app.rwa.xyz/assets/${product.product}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-accent transition-colors"
+                  title={`View ${product.product} on rwa.xyz`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </div>
               {(() => {
                 const meta = getTokenMeta(product.product);
                 return meta ? (
