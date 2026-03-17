@@ -217,6 +217,15 @@ export function useTvlData(enabled = true) {
   return useQuery({
     queryKey: ["tvl-data"],
     queryFn: async () => {
+      // Use mock data when flag is set or all endpoints fail
+      if (USE_MOCK) {
+        return {
+          data: normalize(MOCK_MAIN as any, MOCK_BRIDGED as any, MOCK_RECEIPTS as any),
+          errors: [] as string[],
+          isMock: true,
+        };
+      }
+
       const results = await Promise.allSettled([
         fetchJson<MainResponse>(BASE),
         fetchJson<ChainResponse>(`${BASE}/bridged`),
@@ -231,9 +240,19 @@ export function useTvlData(enabled = true) {
         .map((r, i) => (r.status === "rejected" ? ["security", "bridged", "receipts"][i] : null))
         .filter(Boolean);
 
+      // If all endpoints failed, fall back to mock data
+      if (!main && !bridged && !receipts) {
+        return {
+          data: normalize(MOCK_MAIN as any, MOCK_BRIDGED as any, MOCK_RECEIPTS as any),
+          errors: errors as string[],
+          isMock: true,
+        };
+      }
+
       return {
         data: normalize(main, bridged, receipts),
         errors,
+        isMock: false,
       };
     },
     enabled,
