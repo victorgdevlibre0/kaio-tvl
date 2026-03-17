@@ -170,6 +170,15 @@ const Legal = () => (
             <li>Your access and use is in full compliance with all laws and regulations applicable to you.</li>
           </ul>
         </div>
+
+        <div className="mt-8 pt-6 border-t border-border/40 text-center">
+          <p className="text-sm text-muted-foreground">
+            For more information about KAIO, visit{" "}
+            <a href="https://www.kaio.xyz" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-primary hover:text-primary/80 transition-colors">
+              www.kaio.xyz
+            </a>
+          </p>
+        </div>
       </article>
     </main>
   </div>
