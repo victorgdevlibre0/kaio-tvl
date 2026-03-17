@@ -141,7 +141,7 @@ const Legal = () => (
 
         <Section title="IX. Recording; Personal Data; AML">
           <p>
-            To the extent permitted by applicable law, KAIO may record telephone calls and monitor electronic communications for legal, regulatory, and internal policy compliance purposes. Personal data will be collected, stored, and processed in accordance with our Privacy Policy and applicable data protection legislation, including the GDPR (Regulation (EU) 2016/679) and the UK GDPR. On-chain data, including wallet addresses, may be immutable and may not be capable of deletion in satisfaction of applicable data subject rights.
+            To the extent permitted by applicable law, KAIO may record telephone calls and monitor electronic communications for legal, regulatory, and internal policy compliance purposes. Personal data will be collected, stored, and processed in accordance with our <a href="https://www.kaio.xyz/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-primary hover:text-primary/80 transition-colors">Privacy Policy</a> and applicable data protection legislation, including the GDPR (Regulation (EU) 2016/679) and the UK GDPR. On-chain data, including wallet addresses, may be immutable and may not be capable of deletion in satisfaction of applicable data subject rights.
           </p>
         </Section>
 
