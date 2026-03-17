@@ -152,8 +152,7 @@ const Index = () => {
 
       <footer className="max-w-7xl mx-auto px-4 sm:px-6 py-6 mt-4">
         <p className="text-[11px] leading-relaxed text-muted-foreground/50 text-center">
-          KAIO Explorer is a technology interface operated by the KAIO Foundation. This Platform does not constitute an offer, solicitation, or recommendation to invest in any fund or financial product.
-          KAIO operates solely as a tokenization service provider.{" "}
+          KAIO Explorer is a platform by the KAIO Foundation. It does not offer or promote investments. KAIO is only a tokenization provider.{" "}
           <LegalDrawer>
             <button className="underline underline-offset-2 hover:text-muted-foreground transition-colors">
               Read full disclaimer
